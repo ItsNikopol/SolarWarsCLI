@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="SolarWars:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/SolarWars_jar</output-path>
+    <root id="archive" name="SolarWars.jar">
+      <element id="module-output" name="SolarWars" />
+    </root>
+  </artifact>
+</component>
