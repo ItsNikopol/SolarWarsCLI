@@ -8,46 +8,6 @@ public class IOManager {
     static Scanner in = new Scanner(System.in);
     static Random rand = new Random();
     static PrintStream printcli = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-    static String[] PlanetName = {"", "Earth", "Mars", "Jupiter", "Saturn", "Neptune", "Pluto"};
-    static String[] ProductName = {"Fuel", "Dilithum", "Holos", "Ore", "Meds", "Food", "Weapons", "Water"};
-    /*static String PlanetName(int planet){
-        switch (planet) {
-            case 1 -> {
-                return "Earth";
-            }
-            case 2 -> {
-                return "Mars";
-            }
-            case 3 -> {
-                return "Jupiter";
-            }
-            case 4 -> {
-                return "Saturn";
-            }
-            case 5 -> {
-                return "Neptune";
-            }
-            case 6 -> {
-                return "Pluto";
-            }
-            default -> {
-                return null;
-            }
-        }
-    }*/
-    /*static String ProductName(int product){
-        switch (product) {
-            case 0 -> {return "Fuel";}
-            case 1 -> {return "Dilithum";}
-            case 2 -> {return "Holos";}
-            case 3 -> {return "Ore";}
-            case 4 -> {return "Meds";}
-            case 5 -> {return "Food";}
-            case 6 -> {return "Weapons";}
-            case 7 -> {return "Water";}
-            default -> {return null;}
-        }
-    }*/
     static void Out(String text, int mode){
         switch (mode){
             case 1 -> printcli.print(text);
@@ -62,10 +22,10 @@ public class IOManager {
     }
     static void OutPlus(String firsthalf, int id, String secondhalf, int mode){
         switch (mode){
-            case 1 -> printcli.print(MessageFormat.format("{0}{1}{2}", firsthalf, ProductName[id], secondhalf));
-            case 2 -> printcli.println(MessageFormat.format("{0}{1}{2}", firsthalf, ProductName[id], secondhalf));
+            case 1 -> printcli.print(MessageFormat.format("{0}{1}{2}", firsthalf, Strings.ProductName[id], secondhalf));
+            case 2 -> printcli.println(MessageFormat.format("{0}{1}{2}", firsthalf, Strings.ProductName[id], secondhalf));
             case 3 -> {
-                printcli.print(MessageFormat.format("{0}{1}{2} [>]", firsthalf, ProductName[id], secondhalf));
+                printcli.print(MessageFormat.format("{0}{1}{2} [>]", firsthalf, Strings.ProductName[id], secondhalf));
                 in.skip("\r\n|\r|\n");
                 in.nextLine();
             }
@@ -74,7 +34,7 @@ public class IOManager {
     static void Clear(){
         System.out.print("\033\143");
     }
-    static String StringInput(){
+    static String Input(){
         String out;
         try {
             in.skip("((?<!\\R)\\s)*");

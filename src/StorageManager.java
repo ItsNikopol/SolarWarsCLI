@@ -34,12 +34,12 @@ public class StorageManager {
                                 "I{0} [{1}] {2} {3,number,#}$",
                                 i,
                                 Storage[i],
-                                IOManager.ProductName[i],
+                                Strings.ProductName[i],
                                 Prices[i] != 0
                                         ? Prices[i]
                                         : "N/A"))
         );
-        System.out.print(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
+        System.out.print(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2,number,#}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
         if (gun){
             System.out.println(" | Gun installed.");
         }

@@ -9,41 +9,39 @@ public class Scenario {
     static byte fuelreq = 1;
     public static void scenario(int dayscnt){
         days = dayscnt;
-        IOManager.Out("Type [h] to see list of commands.",2);
+        IOManager.Out("Type [h] to see list of commands.",3);
         inv.money = 10000;
         inv.debt = 10000;
         inv.refreshPrices(1);
         while (dayscnt>0) {
             IOManager.Clear();
-            IOManager.Out(IOManager.PlanetName[planet],2);
+            IOManager.Out(Strings.PlanetName[planet],2);
             inv.printTable();
             IOManager.Out(dayscnt + " days left.",2);
-            IOManager.Out("[Menu] >>> ", 1);  answer = IOManager.StringInput();
+            IOManager.Out("[Menu] >>> ", 1);  answer = IOManager.Input();
             switch (answer) {
-                case "b","buy" -> buy();
-                case "s","sell" -> sell();
-                case "w","warp" -> warp();
-                case "bk","bank" -> bank();
-                case "c","corporation" -> corporation();
-                case "ff","fastforward" -> {
+                case "b","buy","1" -> buy();
+                case "s","sell","2" -> sell();
+                case "bk","bank","3" -> bank();
+                case "c","corporation","4" -> corporation();
+                case "w","warp","5" -> warp();
+                case "ff","fastforward","6" -> {
                     IOManager.Out("Skipping day...",3);
                     inv.refreshPrices(planet);
                     inv.tickVaults();
                     dayscnt--;
                 }
                 case "h","help" -> {
-                    IOManager.Out("Basic commands:",2);
-                    IOManager.Out("[b] - buy; [s] - sell; [w] - warp; [bk] - bank; [c] - corporation [ff] - fastforward; [h] - help; [q] - quit.",2);
-                    IOManager.Out("You can use full command names though. For example [bank] instead of [bk].",3);
+                    IOManager.Out(Strings.Help,3);
                 }
                 case "q","quit" -> {
                     IOManager.Out("Do you really want to exit? Progress won't be saved. [y/n]",2);
-                    IOManager.Out("[Exit] >>> ",1); answer = IOManager.StringInput();
+                    IOManager.Out("[Exit] >>> ",1); answer = IOManager.Input();
                     if (Objects.equals(answer, "y")){
                         System.exit(0);
                     }
                 }
-                default -> IOManager.Out("Invalid input.", 3);
+                default -> IOManager.Out("Invalid input.\nYou may want to type [h] to see list of commands.", 3);
             }
         }
         IOManager.Out("Time's out!",3);
@@ -128,7 +126,7 @@ public class Scenario {
                 if (inv.money>10000) {
                     IOManager.Out("Do you want to expand storage for 10000$? (+80)",2);
                     IOManager.Out("[y/n] >>> ",1);
-                    answer = IOManager.StringInput();
+                    answer = IOManager.Input();
                     if (Objects.equals(answer, "y")) {
                         inv.capacity = inv.capacity + 80;
                         fuelreq++;
@@ -141,7 +139,7 @@ public class Scenario {
                 if (!inv.gun) {
                     IOManager.Out("Do you want to buy a gun for 10000$?",2);
                     IOManager.Out("[y/n] >>> ",1);
-                    answer = IOManager.StringInput();
+                    answer = IOManager.Input();
                     if (Objects.equals(answer, "y")) {
                         inv.gun = true;
                         inv.money -= 10000;
@@ -157,7 +155,7 @@ public class Scenario {
         }
         IOManager.Out("What do you want to do? [r]epay, [b]orrow",2);
         IOManager.Out("Rate: 1.160/day",2);
-        IOManager.Out("[Corporation] >>> ",1); answer = IOManager.StringInput();
+        IOManager.Out("[Corporation] >>> ",1); answer = IOManager.Input();
         switch (answer){
             case "r","repay" -> {
                 IOManager.Out("How much you want to repay?",2);
@@ -182,7 +180,7 @@ public class Scenario {
     static void bank(){
         IOManager.Out("What do you want to do? [d]eposit,[w]ithdraw",2);
         IOManager.Out("Rate: 1.120/day",2);
-        IOManager.Out("[Bank] >>> ",1); answer = IOManager.StringInput();
+        IOManager.Out("[Bank] >>> ",1); answer = IOManager.Input();
         switch (answer){
             case "d","deposit" -> {
                 IOManager.Out("How much you want to deposit?",2);
@@ -238,7 +236,7 @@ public class Scenario {
                     }
                     IOManager.Out("[r]un",2);
                     IOManager.Out("[Battle] >>> ",1);
-                    answer = IOManager.StringInput();
+                    answer = IOManager.Input();
                     switch (answer) {
                         case "a" -> {
                             if (inv.gun) {
