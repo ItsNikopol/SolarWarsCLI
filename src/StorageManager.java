@@ -1,11 +1,12 @@
+import java.text.MessageFormat;
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 public class StorageManager {
     int[] Storage = new int[8];
     int[] Prices = new int[8];
-    int money = 0;
-    int debt = 0;
-    int savings = 0;
+    int money = 0, debt = 0, savings = 0, capacity = 80;
     boolean gun = false;
-    int capacity = 80;
     void refreshPrices(int mode){
         Prices[0] = IOManager.rand.nextInt(100,2000);
         Prices[1] = IOManager.rand.nextInt(5000,30000);
@@ -25,22 +26,20 @@ public class StorageManager {
         }
     }
     int calculateOccupied(){
-        int busy = 0;
-        for (int i = 0; i < 8;i++){
-            busy = busy + Storage[i];
-        }
-        return busy;
+        return Arrays.stream(Storage, 0, 8).sum();
     }
     void printTable(){
-        for (int i = 0; i < 8;i++){
-            if (Prices[i] == 0) {
-                System.out.println("I"+i+" ["+Storage[i]+"] "+ IOManager.ProductName(i)+" N/A");
-            }
-            else{
-                System.out.println("I"+i+" ["+Storage[i]+"] "+ IOManager.ProductName(i)+" "+Prices[i]+"$");
-            }
-        }
-        System.out.print("C: "+money+"$ | D: "+debt+"$ | S: "+savings+"$ | "+ calculateOccupied()+"/"+capacity);
+        IntStream.range(0, 8).forEach(i ->
+                System.out.println(MessageFormat.format(
+                                "I{0} [{1}] {2} {3,number,#}$",
+                                i,
+                                Storage[i],
+                                IOManager.ProductName[i],
+                                Prices[i] != 0
+                                        ? Prices[i]
+                                        : "N/A"))
+        );
+        System.out.print(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
         if (gun){
             System.out.println(" | Gun installed.");
         }
@@ -49,24 +48,18 @@ public class StorageManager {
         }
     }
     void add(int item, int amount, boolean payment){
-        Storage[item] = (Storage[item] + amount);
-        if (payment){
-            money = money - (Prices[item] * amount);
-        }
+        Storage[item] += amount;
+        if (payment) money -= Prices[item] * amount;
     }
     void remove(int item, int amount, boolean payment){
-        Storage[item] = (Storage[item] - amount);
-        if (payment){
-            money = money + (Prices[item] * amount);
-        }
+        Storage[item] -= amount;
+        if (payment) money += Prices[item] * amount;
     }
     void clear(){
-        for (byte i = 0; i < 8;i++){
-            Storage[i] = 0;
-        }
+        IntStream.range(0, 8).forEach(i -> Storage[i] = 0);
     }
     void tickVaults(){
-        debt = (int) (debt * 1.160);
-        savings = (int) (savings * 1.120);
+        debt *= 1.160;
+        savings *= 1.120;
     }
 }

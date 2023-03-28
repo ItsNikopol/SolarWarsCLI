@@ -1,5 +1,6 @@
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.text.MessageFormat;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -7,10 +8,9 @@ public class IOManager {
     static Scanner in = new Scanner(System.in);
     static Random rand = new Random();
     static PrintStream printcli = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-    /*static class PlanetName{
-        String 1 =
-    }*/
-    static String PlanetName(int planet){
+    static String[] PlanetName = {"", "Earth", "Mars", "Jupiter", "Saturn", "Neptune", "Pluto"};
+    static String[] ProductName = {"Fuel", "Dilithum", "Holos", "Ore", "Meds", "Food", "Weapons", "Water"};
+    /*static String PlanetName(int planet){
         switch (planet) {
             case 1 -> {
                 return "Earth";
@@ -34,8 +34,8 @@ public class IOManager {
                 return null;
             }
         }
-    }
-    static String ProductName(int product){
+    }*/
+    /*static String ProductName(int product){
         switch (product) {
             case 0 -> {return "Fuel";}
             case 1 -> {return "Dilithum";}
@@ -47,7 +47,7 @@ public class IOManager {
             case 7 -> {return "Water";}
             default -> {return null;}
         }
-    }
+    }*/
     static void Out(String text, int mode){
         switch (mode){
             case 1 -> printcli.print(text);
@@ -62,15 +62,17 @@ public class IOManager {
     }
     static void OutPlus(String firsthalf, int id, String secondhalf, int mode){
         switch (mode){
-            case 1 -> printcli.print(firsthalf+ ProductName(id)+secondhalf);
-            case 2 -> printcli.println(firsthalf+ ProductName(id)+secondhalf);
+            case 1 -> printcli.print(MessageFormat.format("{0}{1}{2}", firsthalf, ProductName[id], secondhalf));
+            case 2 -> printcli.println(MessageFormat.format("{0}{1}{2}", firsthalf, ProductName[id], secondhalf));
             case 3 -> {
-                printcli.print(firsthalf+ProductName(id)+secondhalf+" [>]");
-                //in.skip("((?<!\\R)\\s)*");
+                printcli.print(MessageFormat.format("{0}{1}{2} [>]", firsthalf, ProductName[id], secondhalf));
                 in.skip("\r\n|\r|\n");
                 in.nextLine();
             }
         }
+    }
+    static void Clear(){
+        System.out.print("\033\143");
     }
     static String StringInput(){
         String out;

@@ -11,8 +11,8 @@ public class Main {
         IOManager.Out("[3] Quit",2);
         IOManager.Out("[Select] >>> ",1);
         switch (IOManager.NumberedInput()){
-            case 1 -> StandardScenario.scenario(60);
-            case 2 -> StandardScenario.scenario(25);
+            case 1 -> Scenario.scenario(60);
+            case 2 -> Scenario.scenario(25);
             case 3 -> System.exit(0);
         }
     }
