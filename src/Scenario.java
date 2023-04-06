@@ -18,8 +18,7 @@ public class Scenario {
             IOManager.Out(Strings.PlanetName[planet],2);
             inv.printTable();
             IOManager.Out(dayscnt + " days left.",2);
-            IOManager.Out("[Menu] >>> ", 1);  answer = IOManager.Input();
-            switch (answer) {
+            switch (IOManager.InputNew(1)) {
                 case "b","buy","1" -> buy();
                 case "s","sell","2" -> sell();
                 case "bk","bank","3" -> bank();
@@ -31,13 +30,10 @@ public class Scenario {
                     inv.tickVaults();
                     dayscnt--;
                 }
-                case "h","help" -> {
-                    IOManager.Out(Strings.Help,3);
-                }
+                case "h","help" -> IOManager.Out(Strings.Help,3);
                 case "q","quit" -> {
                     IOManager.Out("Do you really want to exit? Progress won't be saved. [y/n]",2);
-                    IOManager.Out("[Exit] >>> ",1); answer = IOManager.Input();
-                    if (Objects.equals(answer, "y")){
+                    if (Objects.equals(IOManager.InputNew(6), "y")){
                         System.exit(0);
                     }
                 }
@@ -55,7 +51,7 @@ public class Scenario {
         IOManager.Out("What to buy? [0-7]",2);
         IOManager.Out("[Buy] >>> ",1); numberedanswer = IOManager.NumberedInput();
         if (numberedanswer>7) {
-            IOManager.Out("Invalid input.",3); return;
+            IOManager.Out(Strings.InvalidInput,3); return;
         }
         if (inv.Prices[numberedanswer] == 0){
             IOManager.Out("No one is trading this item here.",3);
@@ -63,7 +59,7 @@ public class Scenario {
         }
         index = numberedanswer;
         available = inv.money/inv.Prices[numberedanswer];
-        IOManager.OutPlus("The price of ",numberedanswer," is "+inv.Prices[numberedanswer]+"$.",2);
+        IOManager.Out("The price of ",numberedanswer," is "+inv.Prices[numberedanswer]+"$.",2);
         IOManager.Out("You can afford "+available+ ".",2);
         IOManager.Out("How many do you want to buy?",2);
         IOManager.Out("[Count] >>> ",1);
@@ -80,20 +76,20 @@ public class Scenario {
         IOManager.Out("What to sell? [0-7]",2);
         IOManager.Out("[Sell] >>> ",1); numberedanswer = IOManager.NumberedInput();
         if (numberedanswer>7) {
-            IOManager.Out("Invalid input.",3); return;
+            IOManager.Out(Strings.InvalidInput,3); return;
         }
         index = numberedanswer;
         if (inv.Prices[numberedanswer] == 0){
             IOManager.Out("No one is trading this item here.",3);
             return;
         }
-        IOManager.OutPlus("The price of ",numberedanswer," is "+inv.Prices[numberedanswer]+"$.",2);
+        IOManager.Out("The price of ",numberedanswer," is "+inv.Prices[numberedanswer]+"$.",2);
         IOManager.Out("You can sell up to "+ inv.Storage[numberedanswer]+".",2);
         IOManager.Out("How many do you want to sell?",2);
         IOManager.Out("[Count] >>> ",1);
         numberedanswer = IOManager.NumberedInput();
         if (numberedanswer > inv.Storage[index]) {
-            IOManager.OutPlus("You don't have enough ",index," to sell!",3);
+            IOManager.Out("You don't have enough ",index," to sell!",3);
         }
         else {
             inv.remove(index,numberedanswer,true);
@@ -108,7 +104,7 @@ public class Scenario {
         IOManager.Out("[Warp] >>> ",1);
         numberedanswer = IOManager.NumberedInput();
         if (numberedanswer>6 || numberedanswer == 0) {
-            IOManager.Out("Invalid input.",3);
+            IOManager.Out(Strings.InvalidInput,3);
             return;
         }
         if (numberedanswer == planet){
@@ -125,9 +121,7 @@ public class Scenario {
             case 5 -> {
                 if (inv.money>10000) {
                     IOManager.Out("Do you want to expand storage for 10000$? (+80)",2);
-                    IOManager.Out("[y/n] >>> ",1);
-                    answer = IOManager.Input();
-                    if (Objects.equals(answer, "y")) {
+                    if (Objects.equals(IOManager.InputNew(6), "y")) {
                         inv.capacity = inv.capacity + 80;
                         fuelreq++;
                         inv.money -= 10000;
@@ -138,9 +132,7 @@ public class Scenario {
                 if (inv.money<10000) break;
                 if (!inv.gun) {
                     IOManager.Out("Do you want to buy a gun for 10000$?",2);
-                    IOManager.Out("[y/n] >>> ",1);
-                    answer = IOManager.Input();
-                    if (Objects.equals(answer, "y")) {
+                    if (Objects.equals(IOManager.InputNew(6), "y")) {
                         inv.gun = true;
                         inv.money -= 10000;
                     }
@@ -249,41 +241,37 @@ public class Scenario {
                         }
                         case "r" -> {
                             if (IOManager.rand.nextInt(1,20) > 13) {
-                                IOManager.Out("You lost them.",3);
+                                IOManager.Out(Strings.PiratesEscape,3);
                                 break outer;
                             }
                         }
-                        default -> IOManager.Out("Invalid input.",3);
+                        default -> IOManager.Out(Strings.InvalidInput,3);
                     }
                     if (IOManager.rand.nextInt(1,20) <= 2){
                         inv.clear();
                         inv.money = (int) (inv.money * 0.2);
-                        IOManager.Out("KABOOOM! Your ship was destroyed.....",2);
-                        IOManager.Out("You see light slowly fading...",3);
-                        IOManager.Out("...",2);
-                        IOManager.Out("You wake up in good shape...",2);
-                        IOManager.Out("...And your ship is empty!",3);
+                        IOManager.Out(Strings.PiratesLose,3);
                     }
                     else{
                         IOManager.Out("Pirates missed.",3);
                     }
                 }
                 IOManager.Out("You investigate inside a pirate ship...",3);
-                index = (byte) IOManager.rand.nextInt(0,7);
+                index = IOManager.rand.nextInt(0,7);
                 numberedanswer = IOManager.rand.nextInt(2,15);
                 inv.add(index,numberedanswer,false);
-                IOManager.OutPlus("Inside it, there was ",index,"!",3);
+                IOManager.Out("Inside it, there was ",index,"!",3);
                 IOManager.Out("You took ["+numberedanswer+"] of it.",3);
             }
             case 3 -> {
                 numberedanswer = IOManager.rand.nextInt(0,7);
-                IOManager.OutPlus("Underproduction! ",numberedanswer," prices increased!",3);
-                inv.Storage[numberedanswer] = (short) (inv.Storage[numberedanswer] * 4);
+                IOManager.Out("Underproduction! ",numberedanswer," prices increased!",3);
+                inv.Storage[numberedanswer] = (inv.Storage[numberedanswer] * 4);
             }
             case 4 -> {
                 numberedanswer = IOManager.rand.nextInt(0,7);
-                IOManager.OutPlus("Overproduction! ",numberedanswer," prices are lowered.",3);
-                inv.Storage[numberedanswer] = (short) (inv.Storage[numberedanswer] / 4);
+                IOManager.Out("Overproduction! ",numberedanswer," prices are lowered.",3);
+                inv.Storage[numberedanswer] = (inv.Storage[numberedanswer] / 4);
             }
         }
     }

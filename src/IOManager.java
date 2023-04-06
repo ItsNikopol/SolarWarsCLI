@@ -14,13 +14,12 @@ public class IOManager {
             case 2 -> printcli.println(text);
             case 3 -> {
                 printcli.print(text+" [>]");
-                //in.skip("((?<!\\R)\\s)*"); seems like winterm glitches with it
-                in.skip("\r\n|\r|\n"); //this is better, but both unix and win 2 in a row glitch with it
+                in.skip("\r\n|\r|\n");
                 in.nextLine();
             }
         }
     }
-    static void OutPlus(String firsthalf, int id, String secondhalf, int mode){
+    static void Out(String firsthalf, int id, String secondhalf, int mode){
         switch (mode){
             case 1 -> printcli.print(MessageFormat.format("{0}{1}{2}", firsthalf, Strings.ProductName[id], secondhalf));
             case 2 -> printcli.println(MessageFormat.format("{0}{1}{2}", firsthalf, Strings.ProductName[id], secondhalf));
@@ -63,5 +62,9 @@ public class IOManager {
             index = 0;
         }
         return index;
+    }
+    static String InputNew(int request){
+        printcli.print("["+Strings.InputmodesName[request]+"] >>> ");
+        return in.next();
     }
 }

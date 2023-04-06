@@ -40,12 +40,7 @@ public class StorageManager {
                                         : "N/A"))
         );
         System.out.print(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2,number,#}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
-        if (gun){
-            System.out.println(" | Gun installed.");
-        }
-        else {
-            System.out.println();
-        }
+        System.out.println(gun ? " | Gun installed." : "");
     }
     void add(int item, int amount, boolean payment){
         Storage[item] += amount;
