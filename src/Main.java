@@ -3,7 +3,7 @@ public class Main {
         IOManager.Out(Strings.Logo,2);
         IOManager.Out(Strings.Name,2);
         IOManager.Out(Strings.Modes,2);
-        switch (IOManager.InputNew(0)){
+        switch (IOManager.Input(0)){
             case "1" -> Scenario.scenario(60);
             case "2" -> Scenario.scenario(25);
             case "3" -> System.exit(0);

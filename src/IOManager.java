@@ -33,38 +33,12 @@ public class IOManager {
     static void Clear(){
         System.out.print("\033\143");
     }
-    static String Input(){
-        String out;
-        try {
-            in.skip("((?<!\\R)\\s)*");
-            out = in.next();
-        }
-        catch(Exception ex){
-            in.skip("((?<!\\R)\\s)*");
-            Out("Invalid input.",2);
-            out = "q";
-        }
-        return out;
-    }
-    static int NumberedInput(){
-        int index;
-        try {
-            index = in.nextInt();
-        }
-        catch(Exception ex){
-            in.skip("((?<!\\R)\\s)*");
-            Out("Invalid input. Answered [0] instead.",2);
-            index = 0;
-        }
-        if (index < 0){
-            in.skip("((?<!\\R)\\s)*");
-            Out("Invalid input. Answered [0] instead.",2);
-            index = 0;
-        }
-        return index;
-    }
-    static String InputNew(int request){
+    static String Input(int request){
         printcli.print("["+Strings.InputmodesName[request]+"] >>> ");
         return in.next();
+    }
+    static int Input(int request, int r1, int r2){
+        printcli.print(MessageFormat.format("[{0}][{1,number,#}-{2,number,#}] >>> ", Strings.InputmodesName[request], r1, r2));
+        return in.nextInt();
     }
 }

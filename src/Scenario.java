@@ -18,7 +18,7 @@ public class Scenario {
             IOManager.Out(Strings.PlanetName[planet],2);
             inv.printTable();
             IOManager.Out(dayscnt + " days left.",2);
-            switch (IOManager.InputNew(1)) {
+            switch (IOManager.Input(1)) {
                 case "b","buy","1" -> buy();
                 case "s","sell","2" -> sell();
                 case "bk","bank","3" -> bank();
@@ -32,11 +32,12 @@ public class Scenario {
                 }
                 case "h","help" -> IOManager.Out(Strings.Help,3);
                 case "q","quit" -> {
-                    IOManager.Out("Do you really want to exit? Progress won't be saved. [y/n]",2);
-                    if (Objects.equals(IOManager.InputNew(6), "y")){
+                    IOManager.Out("Do you really want to exit? Progress won't be saved.",2);
+                    if (Objects.equals(IOManager.Input(6), "Y")){
                         System.exit(0);
                     }
                 }
+                case "cls" -> inv.clear();
                 default -> IOManager.Out("Invalid input.\nYou may want to type [h] to see list of commands.", 3);
             }
         }
@@ -48,9 +49,9 @@ public class Scenario {
         if (inv.capacity == inv.calculateOccupied()){
             IOManager.Out("Storage is full.", 3); return;
         }
-        IOManager.Out("What to buy? [0-7]",2);
-        IOManager.Out("[Buy] >>> ",1); numberedanswer = IOManager.NumberedInput();
-        if (numberedanswer>7) {
+        IOManager.Out("What to buy?",2);
+        numberedanswer = IOManager.Input(3,1,8);
+        if (numberedanswer>8) {
             IOManager.Out(Strings.InvalidInput,3); return;
         }
         if (inv.Prices[numberedanswer] == 0){
@@ -62,8 +63,7 @@ public class Scenario {
         IOManager.Out("The price of ",numberedanswer," is "+inv.Prices[numberedanswer]+"$.",2);
         IOManager.Out("You can afford "+available+ ".",2);
         IOManager.Out("How many do you want to buy?",2);
-        IOManager.Out("[Count] >>> ",1);
-        numberedanswer = IOManager.NumberedInput();
+        numberedanswer = IOManager.Input(2,0,available);
         if (numberedanswer > available) {
             IOManager.Out("You don't have enough money to afford "+ numberedanswer + " of these!", 3);
         } else if (numberedanswer > (inv.capacity - inv.calculateOccupied())) {
@@ -73,9 +73,9 @@ public class Scenario {
         }
     }
     static void sell(){
-        IOManager.Out("What to sell? [0-7]",2);
-        IOManager.Out("[Sell] >>> ",1); numberedanswer = IOManager.NumberedInput();
-        if (numberedanswer>7) {
+        IOManager.Out("What to sell?",2);
+        numberedanswer = IOManager.Input(3,1,8);
+        if (numberedanswer>8) {
             IOManager.Out(Strings.InvalidInput,3); return;
         }
         index = numberedanswer;
@@ -86,8 +86,7 @@ public class Scenario {
         IOManager.Out("The price of ",numberedanswer," is "+inv.Prices[numberedanswer]+"$.",2);
         IOManager.Out("You can sell up to "+ inv.Storage[numberedanswer]+".",2);
         IOManager.Out("How many do you want to sell?",2);
-        IOManager.Out("[Count] >>> ",1);
-        numberedanswer = IOManager.NumberedInput();
+        numberedanswer = IOManager.Input(2,0,available);
         if (numberedanswer > inv.Storage[index]) {
             IOManager.Out("You don't have enough ",index," to sell!",3);
         }
@@ -96,13 +95,12 @@ public class Scenario {
         }
     }
     static void warp(){
-        if (inv.Storage[0]<fuelreq){
+        if (inv.Storage[1]<fuelreq){
             IOManager.Out("You need at least ["+fuelreq+"] Fuel to warp.",3);
             return;
         }
-        IOManager.Out("Where to go? [1-6]",2);
-        IOManager.Out("[Warp] >>> ",1);
-        numberedanswer = IOManager.NumberedInput();
+        IOManager.Out("Where to go?",2);
+        numberedanswer = IOManager.Input(4,1,6);
         if (numberedanswer>6 || numberedanswer == 0) {
             IOManager.Out(Strings.InvalidInput,3);
             return;
@@ -121,7 +119,7 @@ public class Scenario {
             case 5 -> {
                 if (inv.money>10000) {
                     IOManager.Out("Do you want to expand storage for 10000$? (+80)",2);
-                    if (Objects.equals(IOManager.InputNew(6), "y")) {
+                    if (Objects.equals(IOManager.Input(6), "Y")) {
                         inv.capacity = inv.capacity + 80;
                         fuelreq++;
                         inv.money -= 10000;
@@ -132,7 +130,7 @@ public class Scenario {
                 if (inv.money<10000) break;
                 if (!inv.gun) {
                     IOManager.Out("Do you want to buy a gun for 10000$?",2);
-                    if (Objects.equals(IOManager.InputNew(6), "y")) {
+                    if (Objects.equals(IOManager.Input(6), "Y")) {
                         inv.gun = true;
                         inv.money -= 10000;
                     }
@@ -147,12 +145,11 @@ public class Scenario {
         }
         IOManager.Out("What do you want to do? [r]epay, [b]orrow",2);
         IOManager.Out("Rate: 1.160/day",2);
-        IOManager.Out("[Corporation] >>> ",1); answer = IOManager.Input();
+        answer = IOManager.Input(5);
         switch (answer){
             case "r","repay" -> {
                 IOManager.Out("How much you want to repay?",2);
-                IOManager.Out("[Count] >>> ",1);
-                numberedanswer = IOManager.NumberedInput();
+                numberedanswer = IOManager.Input(2,0,inv.money);
                 if (numberedanswer > inv.money) {
                     IOManager.Out("You don't have enough money!",3);}
                 else {
@@ -162,8 +159,7 @@ public class Scenario {
             }
             case "b","borrow" -> {
                 IOManager.Out("How much you want to borrow?",2);
-                IOManager.Out("[Count] >>> ",1);
-                numberedanswer = IOManager.NumberedInput();
+                numberedanswer = IOManager.Input(2,0,0);
                 inv.debt += numberedanswer;
                 inv.money += numberedanswer;
             }
@@ -172,12 +168,10 @@ public class Scenario {
     static void bank(){
         IOManager.Out("What do you want to do? [d]eposit,[w]ithdraw",2);
         IOManager.Out("Rate: 1.120/day",2);
-        IOManager.Out("[Bank] >>> ",1); answer = IOManager.Input();
-        switch (answer){
+        switch (IOManager.Input(6)){
             case "d","deposit" -> {
                 IOManager.Out("How much you want to deposit?",2);
-                IOManager.Out("[Count] >>> ",1);
-                numberedanswer = IOManager.NumberedInput();
+                numberedanswer = IOManager.Input(2,0,inv.money);
                 if (numberedanswer > inv.money) {
                     IOManager.Out("You don't have enough money!",3);}
                 else {
@@ -193,8 +187,7 @@ public class Scenario {
             }
             case "w","withdraw" -> {
                 IOManager.Out("How much you want to withdraw?",2);
-                IOManager.Out("[Count] >>> ",1);
-                numberedanswer = IOManager.NumberedInput();
+                numberedanswer = IOManager.Input(2,0,inv.savings);
                 if (numberedanswer > inv.savings) IOManager.Out("You don't have enough money in bank!",3);
                 else {
                     if (planet != 1) {
@@ -215,7 +208,7 @@ public class Scenario {
             case 1 -> {
                 IOManager.Out("WORMHOLE!", 2);
                 IOManager.Out("Your ship sucked into wormhole and came out 3 days earlier.",3);
-                days = (byte) (days + 3);
+                days += 3;
             }
             case 2 -> {
                 IOManager.Out("PIRATES!",2);
@@ -227,8 +220,7 @@ public class Scenario {
                         IOManager.Out("[a]ttack/",1);
                     }
                     IOManager.Out("[r]un",2);
-                    IOManager.Out("[Battle] >>> ",1);
-                    answer = IOManager.Input();
+                    answer = IOManager.Input(5);
                     switch (answer) {
                         case "a" -> {
                             if (inv.gun) {

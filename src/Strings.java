@@ -1,6 +1,6 @@
 public class Strings {
     static String[] PlanetName = {"", "Earth", "Mars", "Jupiter", "Saturn", "Neptune", "Pluto"};
-    static String[] ProductName = {"Fuel", "Dilithum", "Holos", "Ore", "Meds", "Food", "Weapons", "Water"};
+    static String[] ProductName = {"", "Fuel", "Dilithum", "Holos", "Ore", "Meds", "Food", "Weapons", "Water"};
     static String[] InputmodesName = {"Select","Menu","Count","Item","Planet","Action","Y/N"};
     static String Logo = "   _____       __                                   \n  / ___/____  / /___ _______      ______ ___________\n  \\__ \\/ __ \\/ / __ `/ ___/ | /| / / __ `/ ___/ ___/\n ___/ / /_/ / / /_/ / /   | |/ |/ / /_/ / /  (__  ) \n/____/\\____/_/\\__,_/_/    |__/|__/\\__,_/_/  /____/  ";
     static String Name = "Solarwars v0.9a";
@@ -9,6 +9,4 @@ public class Strings {
     static String InvalidInput = "Invalid Input.";
     static String PiratesLose = "KABOOOM! Your ship was destroyed.\nPirates captured your ship and took all of your cargo.";
     static String PiratesEscape = "You lost them in the Clouds.";
-
-
 }
