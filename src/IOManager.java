@@ -19,12 +19,46 @@ public class IOManager {
             }
         }
     }
-    static void Out(String firsthalf, int id, String secondhalf, int mode){
+    /*static void Out(String firsthalf, int id, String secondhalf, int mode){
         switch (mode){
             case 1 -> printcli.print(MessageFormat.format("{0}{1}{2}", firsthalf, Strings.ProductName[id], secondhalf));
             case 2 -> printcli.println(MessageFormat.format("{0}{1}{2}", firsthalf, Strings.ProductName[id], secondhalf));
             case 3 -> {
                 printcli.print(MessageFormat.format("{0}{1}{2} [>]", firsthalf, Strings.ProductName[id], secondhalf));
+                in.skip("\r\n|\r|\n");
+                in.nextLine();
+            }
+        }
+    }*/
+    static void Out(String text, int id, boolean idmode, int mode){
+        if (idmode) {
+            switch (mode) {
+                case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id]));
+                case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id]));
+                case 3 -> {
+                    printcli.print(MessageFormat.format(text + " [>]", Strings.ProductName[id]));
+                    in.skip("\r\n|\r|\n");
+                    in.nextLine();
+                }
+            }
+        } else {
+            switch (mode) {
+                case 1 -> printcli.print(MessageFormat.format(text, id));
+                case 2 -> printcli.println(MessageFormat.format(text, id));
+                case 3 -> {
+                    printcli.print(MessageFormat.format(text + " [>]", id));
+                    in.skip("\r\n|\r|\n");
+                    in.nextLine();
+                }
+            }
+        }
+    }
+    static void Out(String text, int id, int number, int mode){
+        switch (mode){
+            case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id], number));
+            case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id], number));
+            case 3 -> {
+                printcli.print(MessageFormat.format(text+" [>]", Strings.ProductName[id], number));
                 in.skip("\r\n|\r|\n");
                 in.nextLine();
             }
