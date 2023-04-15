@@ -19,24 +19,13 @@ public class IOManager {
             }
         }
     }
-    /*static void Out(String firsthalf, int id, String secondhalf, int mode){
-        switch (mode){
-            case 1 -> printcli.print(MessageFormat.format("{0}{1}{2}", firsthalf, Strings.ProductName[id], secondhalf));
-            case 2 -> printcli.println(MessageFormat.format("{0}{1}{2}", firsthalf, Strings.ProductName[id], secondhalf));
-            case 3 -> {
-                printcli.print(MessageFormat.format("{0}{1}{2} [>]", firsthalf, Strings.ProductName[id], secondhalf));
-                in.skip("\r\n|\r|\n");
-                in.nextLine();
-            }
-        }
-    }*/
     static void Out(String text, int id, boolean idmode, int mode){
         if (idmode) {
             switch (mode) {
-                case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id]));
-                case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id]));
+                case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id-1]));
+                case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id-1]));
                 case 3 -> {
-                    printcli.print(MessageFormat.format(text + " [>]", Strings.ProductName[id]));
+                    printcli.print(MessageFormat.format(text + " [>]", Strings.ProductName[id-1]));
                     in.skip("\r\n|\r|\n");
                     in.nextLine();
                 }
@@ -55,10 +44,10 @@ public class IOManager {
     }
     static void Out(String text, int id, int number, int mode){
         switch (mode){
-            case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id], number));
-            case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id], number));
+            case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id-1], number));
+            case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id-1], number));
             case 3 -> {
-                printcli.print(MessageFormat.format(text+" [>]", Strings.ProductName[id], number));
+                printcli.print(MessageFormat.format(text+" [>]", Strings.ProductName[id-1], number));
                 in.skip("\r\n|\r|\n");
                 in.nextLine();
             }
@@ -72,7 +61,13 @@ public class IOManager {
         return in.next();
     }
     static int Input(int request, int r1, int r2){
-        printcli.print(MessageFormat.format("[{0}][{1,number,#}-{2,number,#}] >>> ", Strings.InputmodesName[request], r1, r2));
-        return in.nextInt();
+        try {
+            printcli.print(MessageFormat.format("[{0}][{1,number,#}-{2,number,#}] >>> ", Strings.InputmodesName[request], r1, r2));
+            int input = Integer.parseInt(in.next());
+            if (input>=r1 && input<=r2) return input;
+            return -1;
+        } catch (Exception ex){
+            return -1;
+        }
     }
 }

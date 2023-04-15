@@ -3,6 +3,7 @@ import java.util.Objects;
 public class Scenario {
     static StorageManager inv = new StorageManager();
     static int numberedanswer, index, available, days = 60;
+    static boolean inputproblem;
     static String answer;
     static byte pirates = 3;
     static byte planet = 1;
@@ -18,6 +19,10 @@ public class Scenario {
             IOManager.Out(Strings.PlanetName[planet],2);
             inv.printTable();
             IOManager.Out(Strings.DaysLeft,dayscnt,false,2);
+            if (inputproblem) {
+                IOManager.Out(Strings.InvalidInput,2);
+                inputproblem = false;
+            }
             switch (IOManager.Input(1)) {
                 case "b","buy","1" -> buy();
                 case "s","sell","2" -> sell();
@@ -51,10 +56,10 @@ public class Scenario {
         }
         IOManager.Out(Strings.Buy,2);
         numberedanswer = IOManager.Input(3,1,8);
-        if (numberedanswer>8) {
-            IOManager.Out(Strings.InvalidInput,3); return;
-        }
-        if (inv.Prices[numberedanswer] == 0){
+        if (numberedanswer == -1) {
+            inputproblem = true;
+            return;
+        } else if (inv.Prices[numberedanswer] == 0){
             IOManager.Out(Strings.NotAvailable,3);
             return;
         }
@@ -62,8 +67,12 @@ public class Scenario {
         available = inv.money/inv.Prices[numberedanswer];
         IOManager.Out(Strings.Price,numberedanswer,inv.Prices[numberedanswer],2);
         IOManager.Out(Strings.AvailableToBuy,available,false,2);
-        IOManager.Out(Strings.HowManyToSell,2);
+        IOManager.Out(Strings.HowManyToBuy,2);
         numberedanswer = IOManager.Input(2,0,available);
+        if (numberedanswer == -1) {
+            inputproblem = true;
+            return;
+        }
         if (numberedanswer > available) {
             IOManager.Out(Strings.NotEnoughMoney,numberedanswer,true, 3);
         } else if (numberedanswer > (inv.capacity - inv.calculateOccupied())) {
@@ -75,21 +84,21 @@ public class Scenario {
     static void sell(){
         IOManager.Out(Strings.Sell,2);
         numberedanswer = IOManager.Input(3,1,8);
-        if (numberedanswer>8) {
-            IOManager.Out(Strings.InvalidInput,3); return;
-        }
         index = numberedanswer;
+        if (numberedanswer == -1) {
+            inputproblem = true;
+            return;
+        }
         if (inv.Prices[numberedanswer] == 0){
             IOManager.Out(Strings.NotAvailable,3);
             return;
         }
         IOManager.Out(Strings.Price,numberedanswer,inv.Prices[numberedanswer],2);
-        IOManager.Out(Strings.AvailableToSell,2);
-
+        IOManager.Out(Strings.AvailableToSell,inv.Storage[numberedanswer],false,2);
         IOManager.Out(Strings.HowManyToSell,2);
-        numberedanswer = IOManager.Input(2,0,available);
-        if (numberedanswer > inv.Storage[index]) {
-            IOManager.Out(Strings.NotEnoughItems,numberedanswer,true, 3);
+        numberedanswer = IOManager.Input(2,0,inv.Storage[numberedanswer]);
+        if (numberedanswer == -1) {
+            inputproblem = true;
         }
         else {
             inv.remove(index,numberedanswer,true);
@@ -102,8 +111,8 @@ public class Scenario {
         }
         IOManager.Out("Where to go?",2);
         numberedanswer = IOManager.Input(4,1,6);
-        if (numberedanswer>6 || numberedanswer == 0) {
-            IOManager.Out(Strings.InvalidInput,3);
+        if (numberedanswer == -1) {
+            inputproblem = true;
             return;
         }
         if (numberedanswer == planet){
@@ -151,8 +160,7 @@ public class Scenario {
             case "r","repay" -> {
                 IOManager.Out("How much you want to repay?",2);
                 numberedanswer = IOManager.Input(2,0,inv.money);
-                if (numberedanswer > inv.money) {
-                    IOManager.Out(Strings.NotEnoughMoney,3);}
+                if (numberedanswer == -1) inputproblem = true;
                 else {
                     inv.money -= numberedanswer;
                     inv.debt -= numberedanswer;
@@ -173,9 +181,9 @@ public class Scenario {
             case "d","deposit" -> {
                 IOManager.Out("How much you want to deposit?",2);
                 numberedanswer = IOManager.Input(2,0,inv.money);
-                if (numberedanswer > inv.money) {
-                    IOManager.Out("You don't have enough money!",3);}
-                else {
+                if (numberedanswer == -1) {
+                    inputproblem = true;
+                } else {
                     if (planet != 1) {
                         IOManager.Out("Off-planet charge: 30%", 3);
                         inv.savings = (int) ((inv.savings + numberedanswer) * 0.7);
@@ -189,8 +197,9 @@ public class Scenario {
             case "w","withdraw" -> {
                 IOManager.Out("How much you want to withdraw?",2);
                 numberedanswer = IOManager.Input(2,0,inv.savings);
-                if (numberedanswer > inv.savings) IOManager.Out("You don't have enough money in bank!",3);
-                else {
+                if (numberedanswer == -1) {
+                    inputproblem = true;
+                } else {
                     if (planet != 1) {
                         IOManager.Out("Off-planet charge: 30%", 3);
                         inv.money = (int) ((inv.money + numberedanswer) * 0.7);
@@ -265,7 +274,7 @@ public class Scenario {
             }
             case 4 -> {
                 numberedanswer = IOManager.rand.nextInt(0,7);
-                IOManager.Out(Strings.Underproduction,numberedanswer,false,3);
+                IOManager.Out(Strings.Overproduction,numberedanswer,false,3);
                 inv.Storage[numberedanswer] = (inv.Storage[numberedanswer] / 4);
             }
         }

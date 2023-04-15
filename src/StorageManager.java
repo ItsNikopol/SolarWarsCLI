@@ -31,10 +31,10 @@ public class StorageManager {
     void printTable(){
         IntStream.range(1, 9).forEach(i ->
                 System.out.println(MessageFormat.format(
-                                "I{0} [{1}] {2} {3,number,#}$",
+                                "ID{0} [{1}] {2} {3,number,#}$",
                                 i,
                                 Storage[i],
-                                Strings.ProductName[i],
+                                Strings.ProductName[i-1],
                                 Prices[i]
                 )));
         System.out.print(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2,number,#}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
