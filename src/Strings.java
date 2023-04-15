@@ -5,7 +5,7 @@ public class Strings {
     static String[] InputmodesName = {"Select","Menu","Count","Item","Planet","Action","Y/N"};
 	//Main menu
     static String Logo = "   _____       __                                   \n  / ___/____  / /___ _______      ______ ___________\n  \\__ \\/ __ \\/ / __ `/ ___/ | /| / / __ `/ ___/ ___/\n ___/ / /_/ / / /_/ / /   | |/ |/ / /_/ / /  (__  ) \n/____/\\____/_/\\__,_/_/    |__/|__/\\__,_/_/  /____/  ";
-    static String Name = "Solarwars v0.9a";
+    static String Name = "Solarwars v0.10a";
     static String Help = "Game commands:\nBuying:\n[b]/[1] - Buy; [s]/[2] - Sell\nManaging money:\n[bk]/[3] - Bank; [c]/[4] - Corporation\nMoving:\n[w]/[5] - Warp to planet; [ff]/[6] - Skip day\nOther:\n[h] - Help; [q] - Quit from the game.";
     static String Modes = "[1] Normal Mode - 60 Days\n[2] Blitz Mode - 25 Days\n[3] Quit";
 	//Actions
@@ -27,7 +27,12 @@ public class Strings {
 	static String Sell = "What to sell?";
     static String NotEnoughMoney = "You don't have enough money to afford {0} of these!";
     static String NotEnoughItems = "You don't have enough {0} to sell!";
+    static String NotEnoughFuel = "You need at least {0,number,#} fuel to warp.";
+    static String WhereTo = "Where to go?";
+    static String SamePlanet = "You can't warp on the same planet.";
     //Events
+    static String ExpandStorage = "Do you want to expand storage for 10000$? (+80)";
+    static String BuyGun = "Do you want to buy a gun for 10000$?";
     static String PiratesLose = "KABOOOM! Your ship was destroyed.\nPirates captured your ship and took all of your cargo.";
     static String PiratesLoot = "You investigate inside a pirate ship...\nInside it, there was {0}!\nYou took {1,number,#} of it.";
     static String PiratesEscape = "You lost them in the Clouds.";

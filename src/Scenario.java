@@ -106,17 +106,17 @@ public class Scenario {
     }
     static void warp(){
         if (inv.Storage[1]<fuelreq){
-            IOManager.Out("You need at least ["+fuelreq+"] Fuel to warp.",3);
+            IOManager.Out(Strings.NotEnoughFuel,fuelreq,false,3);
             return;
         }
-        IOManager.Out("Where to go?",2);
+        IOManager.Out(Strings.WhereTo,2);
         numberedanswer = IOManager.Input(4,1,6);
         if (numberedanswer == -1) {
             inputproblem = true;
             return;
         }
         if (numberedanswer == planet){
-            IOManager.Out("You can't warp on the same planet.",3);
+            IOManager.Out(Strings.SamePlanet,3);
             return;
         }
         days = (byte) (days - 1);
@@ -128,7 +128,7 @@ public class Scenario {
         switch (numberedanswer) {
             case 5 -> {
                 if (inv.money>10000) {
-                    IOManager.Out("Do you want to expand storage for 10000$? (+80)",2);
+                    IOManager.Out(Strings.ExpandStorage,2);
                     if (Objects.equals(IOManager.Input(6), "Y")) {
                         inv.capacity = inv.capacity + 80;
                         fuelreq++;
@@ -139,7 +139,7 @@ public class Scenario {
             case 4 -> {
                 if (inv.money<10000) break;
                 if (!inv.gun) {
-                    IOManager.Out("Do you want to buy a gun for 10000$?",2);
+                    IOManager.Out(Strings.BuyGun,2);
                     if (Objects.equals(IOManager.Input(6), "Y")) {
                         inv.gun = true;
                         inv.money -= 10000;
