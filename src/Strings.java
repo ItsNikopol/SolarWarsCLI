@@ -30,13 +30,17 @@ public class Strings {
     static String NotEnoughFuel = "You need at least {0,number,#} fuel to warp.";
     static String WhereTo = "Where to go?";
     static String SamePlanet = "You can't warp on the same planet.";
+    static String CorpLock = "The corporation will not loan you any more money today.";
     //Events
     static String ExpandStorage = "Do you want to expand storage for 10000$? (+80)";
     static String BuyGun = "Do you want to buy a gun for 10000$?";
-    static String PiratesLose = "KABOOOM! Your ship was destroyed.\nPirates captured your ship and took all of your cargo.";
+    static String PiratesLose = "You ran out of power, and were captured.\nThe pirates took all your cargo and half of your cash.";
     static String PiratesLoot = "You investigate inside a pirate ship...\nInside it, there was {0}!\nYou took {1,number,#} of it.";
-    static String PiratesEscape = "You lost them in the Clouds.";
+    static String PiratesEscape = "You lost them in a dust cloud.";
     static String Underproduction = "Underproduction! {0} prices increased!";
     static String Overproduction = "Overproduction! {0} on sale.";
-	
+    static String AllDemand = "New colony established. All items in demand.";
+	static String FoundItem = "You found some {0} on a abandoned ship!";
+    static String Wormhole = "WORMHOLE!\nYou stumbled into a wormhole and come out 3 days earlier.";
+    static String SalvageShip = "You salvage a Derelict Ship. +80 Bays and Cargo!";
 }

@@ -2,7 +2,7 @@ import java.util.Objects;
 
 public class Scenario {
     static StorageManager inv = new StorageManager();
-    static int numberedanswer, index, available, days = 60;
+    static int numberedanswer, index, available, days;
     static boolean inputproblem;
     static String answer;
     static byte pirates = 3;
@@ -14,7 +14,7 @@ public class Scenario {
         inv.money = 10000;
         inv.debt = 10000;
         inv.refreshPrices(1);
-        while (dayscnt>0) {
+        while (days>0) {
             IOManager.Clear();
             IOManager.Out(Strings.PlanetName[planet],2);
             inv.printTable();
@@ -32,7 +32,7 @@ public class Scenario {
                 case "ff","fastforward","6" -> {
                     IOManager.Out(Strings.SkipDay,3);
                     inv.refreshPrices(planet);
-                    inv.tickVaults();
+                    inv.tick();
                     dayscnt--;
                 }
                 case "h","help" -> IOManager.Out(Strings.Help,3);
@@ -119,9 +119,9 @@ public class Scenario {
             IOManager.Out(Strings.SamePlanet,3);
             return;
         }
-        days = (byte) (days - 1);
-        inv.tickVaults();
-        inv.Storage[0] = (short) (inv.Storage[0] - fuelreq);
+        days--;
+        inv.tick();
+        inv.Storage[0] = (inv.Storage[1] - fuelreq);
         planet = (byte) numberedanswer;
         inv.refreshPrices(planet);
         events();
@@ -130,7 +130,7 @@ public class Scenario {
                 if (inv.money>10000) {
                     IOManager.Out(Strings.ExpandStorage,2);
                     if (Objects.equals(IOManager.Input(6), "Y")) {
-                        inv.capacity = inv.capacity + 80;
+                        inv.capacity += 100;
                         fuelreq++;
                         inv.money -= 10000;
                     }
@@ -154,7 +154,7 @@ public class Scenario {
             return;
         }
         IOManager.Out("What do you want to do? [r]epay, [b]orrow",2);
-        IOManager.Out("Rate: 1.160/day",2);
+        IOManager.Out("Rate: 12.5%/day",2);
         answer = IOManager.Input(5);
         switch (answer){
             case "r","repay" -> {
@@ -167,16 +167,21 @@ public class Scenario {
                 }
             }
             case "b","borrow" -> {
+                if (inv.corplock){
+                    IOManager.Out(Strings.CorpLock,3);
+                    return;
+                }
                 IOManager.Out("How much you want to borrow?",2);
-                numberedanswer = IOManager.Input(2,0,0);
+                numberedanswer = IOManager.Input(2,0,300000);
                 inv.debt += numberedanswer;
                 inv.money += numberedanswer;
+                inv.corplock = true;
             }
         }
     }
     static void bank(){
         IOManager.Out("What do you want to do? [d]eposit,[w]ithdraw",2);
-        IOManager.Out("Rate: 1.120/day",2);
+        IOManager.Out("Rate: 6.25%/day",2);
         switch (IOManager.Input(6)){
             case "d","deposit" -> {
                 IOManager.Out("How much you want to deposit?",2);
@@ -220,8 +225,7 @@ public class Scenario {
         */
         switch (IOManager.rand.nextInt(1,20)){
             case 1 -> {
-                IOManager.Out("WORMHOLE!", 2);
-                IOManager.Out("Your ship sucked into wormhole and came out 3 days earlier.",3);
+                IOManager.Out(Strings.Wormhole,3);
                 days += 3;
             }
             case 2 -> {
@@ -262,20 +266,35 @@ public class Scenario {
                         IOManager.Out("Pirates missed.",3);
                     }
                 }
-                index = IOManager.rand.nextInt(0,7);
+                index = IOManager.rand.nextInt(1,8);
                 numberedanswer = IOManager.rand.nextInt(2,15);
                 inv.add(index,numberedanswer,false);
                 IOManager.Out(Strings.PiratesLoot,index,numberedanswer,3);
             }
             case 3 -> {
-                numberedanswer = IOManager.rand.nextInt(0,7);
+                numberedanswer = IOManager.rand.nextInt(1,8);
                 IOManager.Out(Strings.Underproduction,numberedanswer,false,3);
-                inv.Storage[numberedanswer] = (inv.Storage[numberedanswer] * 4);
+                inv.manipulate(numberedanswer, true);
             }
             case 4 -> {
-                numberedanswer = IOManager.rand.nextInt(0,7);
+                numberedanswer = IOManager.rand.nextInt(1,8);
                 IOManager.Out(Strings.Overproduction,numberedanswer,false,3);
-                inv.Storage[numberedanswer] = (inv.Storage[numberedanswer] / 4);
+                inv.manipulate(numberedanswer, false);
+            }
+            case 5 -> {
+                IOManager.Out(Strings.AllDemand,3);
+                inv.manipulate(true);
+            }
+            case 6 -> {
+                index = IOManager.rand.nextInt(1,8);
+                numberedanswer = IOManager.rand.nextInt(3,5);
+                IOManager.Out(Strings.FoundItem,index,false,3);
+                inv.add(index,numberedanswer,false);
+            }
+            case 7 -> {
+                IOManager.Out(Strings.SalvageShip,3);
+                inv.capacity += 80;
+                fuelreq++;
             }
         }
     }
