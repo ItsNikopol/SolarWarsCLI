@@ -1,5 +1,6 @@
 @Echo off
 Echo Building......
+if not exist "out\" mkdir out
 javac -d out\ src\*.java
 copy src\META-INF\MANIFEST.MF out\
 cd out
