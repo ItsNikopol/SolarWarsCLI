@@ -11,7 +11,15 @@ Moving away from the original drug theme (deemed offensive by some), the object 
 ## Building:
 ### Windows
 
-- Open `Build.bat`
+- Open `Build.bat`.
+
+You will find JAR in `out/SolarWars.jar`.
+
+### Linux
+
+- Open terminal in folder
+- Make file executable. `chmod +x Build.sh`
+- Run script. `./Build.sh`
 
 You will find JAR in `out/SolarWars.jar`.
 
