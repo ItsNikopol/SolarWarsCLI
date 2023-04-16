@@ -5,12 +5,19 @@ Moving away from the original drug theme (deemed offensive by some), the object 
 
 ## Requirements:
 
-- Java 17
+- Java 17 (JDK to build)
 - UTF-8 Terminal
 
 ## Building:
+### Windows
 
-- Open project in IntelliJ IDEA
-- Go to Build > Build Artifacts... > Build
+- Open `Build.bat`
+
+You will find JAR in `out/SolarWars.jar`.
+
+### IntelliJ IDEA
+
+- Open project in IntelliJ IDEA.
+- Go to Build > Build Artifacts... > Build.
 
 You will find JAR in `out/artifacts/SolarWars_jar/SolarWars.jar`.

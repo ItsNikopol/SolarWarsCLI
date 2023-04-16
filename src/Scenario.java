@@ -122,12 +122,13 @@ public class Scenario {
         planet = (byte) numberedanswer;
         inv.refreshPrices(planet);
         events();
+        pirates = 3;
         switch (numberedanswer) {
             case 5 -> {
                 if (inv.money>10000) {
                     IOManager.Out(Strings.ExpandStorage,2);
                     if (Objects.equals(IOManager.Input(6), "Y")) {
-                        inv.capacity += 100;
+                        inv.capacity += 80;
                         fuelreq++;
                         inv.money -= 10000;
                     }
@@ -217,10 +218,11 @@ public class Scenario {
     static void events(){
         /*
         In order to test events, you can enter event maunally.
-        System.out.print("Awaiting debug RNG input (1-4, 5 and more to cancel) > "); numberedanswer = Input(2);
+        System.out.println("Awaiting debug RNG input"); numberedanswer = IOManager.Input(0,1,20);
         IOManager.rand.nextInt(1,20)
         */
-        switch (IOManager.rand.nextInt(1,20)){
+        System.out.println("Awaiting debug RNG input"); numberedanswer = IOManager.Input(0,1,20);
+        switch (numberedanswer){
             case 1 -> {
                 IOManager.Out(Strings.Wormhole,3);
                 days += 3;
@@ -241,8 +243,8 @@ public class Scenario {
                             if (inv.gun) {
                                 if (IOManager.rand.nextInt(1,20) > 10) {
                                     pirates--;
-                                    IOManager.Out("You destroyed a ship.",3);
-                                } else { IOManager.Out("Missed!",3);}
+                                    IOManager.Out("You destroyed a ship.",2);
+                                } else { IOManager.Out("Missed!",2);}
                             } else {
                                 IOManager.Out("You don't have a weapon!",3);}
                         }
@@ -259,23 +261,25 @@ public class Scenario {
                         inv.money = (int) (inv.money * 0.2);
                         IOManager.Out(Strings.PiratesLose,3);
                     }
-                    else{
-                        IOManager.Out("Pirates missed.",3);
+                    else if (pirates > 0){
+                        IOManager.Out("Pirates still chase you.",3);
                     }
                 }
-                index = IOManager.rand.nextInt(1,8);
-                numberedanswer = IOManager.rand.nextInt(2,15);
-                inv.add(index,numberedanswer,false);
-                IOManager.Out(Strings.PiratesLoot,index,numberedanswer,3);
+                if (pirates == 0){
+                    index = IOManager.rand.nextInt(1,8);
+                    numberedanswer = IOManager.rand.nextInt(3,20);
+                    inv.add(index,numberedanswer,false);
+                    IOManager.Out(Strings.PiratesLoot,index,numberedanswer,3);
+                }
             }
             case 3 -> {
                 numberedanswer = IOManager.rand.nextInt(1,8);
-                IOManager.Out(Strings.Underproduction,numberedanswer,false,3);
+                IOManager.Out(Strings.Underproduction,numberedanswer,true,3);
                 inv.manipulate(numberedanswer, true);
             }
             case 4 -> {
                 numberedanswer = IOManager.rand.nextInt(1,8);
-                IOManager.Out(Strings.Overproduction,numberedanswer,false,3);
+                IOManager.Out(Strings.Overproduction,numberedanswer,true,3);
                 inv.manipulate(numberedanswer, false);
             }
             case 5 -> {
@@ -285,7 +289,7 @@ public class Scenario {
             case 6 -> {
                 index = IOManager.rand.nextInt(1,8);
                 numberedanswer = IOManager.rand.nextInt(3,5);
-                IOManager.Out(Strings.FoundItem,index,false,3);
+                IOManager.Out(Strings.FoundItem,index,true,3);
                 inv.add(index,numberedanswer,false);
             }
             case 7 -> {

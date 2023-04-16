@@ -25,7 +25,7 @@ public class IOManager {
                 case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id]));
                 case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id]));
                 case 3 -> {
-                    printcli.print(MessageFormat.format(text + " [>]", Strings.ProductName[id]));
+                    printcli.print(MessageFormat.format(text + " [Enter]", Strings.ProductName[id]));
                     in.skip("\r\n|\r|\n");
                     in.nextLine();
                 }
@@ -35,7 +35,7 @@ public class IOManager {
                 case 1 -> printcli.print(MessageFormat.format(text, id));
                 case 2 -> printcli.println(MessageFormat.format(text, id));
                 case 3 -> {
-                    printcli.print(MessageFormat.format(text + " [>]", id));
+                    printcli.print(MessageFormat.format(text + " [Enter]", id));
                     in.skip("\r\n|\r|\n");
                     in.nextLine();
                 }
@@ -47,7 +47,7 @@ public class IOManager {
             case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id], number));
             case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id], number));
             case 3 -> {
-                printcli.print(MessageFormat.format(text+" [>]", Strings.ProductName[id], number));
+                printcli.print(MessageFormat.format(text+" [Enter]", Strings.ProductName[id], number));
                 in.skip("\r\n|\r|\n");
                 in.nextLine();
             }

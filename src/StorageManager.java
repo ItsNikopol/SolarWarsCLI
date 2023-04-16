@@ -6,7 +6,7 @@ public class StorageManager {
     int[] Storage = new int[9];
     int[] Prices = new int[9];
     int money = 0, debt = 0, savings = 0, capacity = 100;
-    boolean gun = false, corplock = false;
+    boolean gun = true, corplock = false;
     void refreshPrices(int mode){
         Prices[1] = IOManager.rand.nextInt(150,2000);
         Prices[2] = IOManager.rand.nextInt(5000,30000);
@@ -62,9 +62,9 @@ public class StorageManager {
     }
     void manipulate(int item, boolean mode){
         if (mode){
-            Prices[item] *= 2.5;
+            Prices[item] *= 4;
         } else {
-            Prices[item] /= 2.5;
+            Prices[item] /= 3;
         }
     }
     void manipulate(boolean mode){
