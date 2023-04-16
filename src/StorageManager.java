@@ -28,7 +28,7 @@ public class StorageManager {
         Prices[IOManager.rand.nextInt(2,8)] = 0;
     }
     int calculateOccupied(){
-        return Arrays.stream(Storage, 0, 8).sum();
+        return Arrays.stream(Storage, 1, 9).sum();
     }
     void printTable(){
         for(int i = 1; i < 9; i++){
@@ -37,14 +37,14 @@ public class StorageManager {
                         "ID{0} [{1}] {2} N/A",
                         i,
                         Storage[i],
-                        Strings.ProductName[i - 1]
+                        Strings.ProductName[i]
                 ));
             } else {
                 System.out.println(MessageFormat.format(
                         "ID{0} [{1}] {2} {3,number,#}$",
                         i,
                         Storage[i],
-                        Strings.ProductName[i - 1],
+                        Strings.ProductName[i],
                         Prices[i]
                 ));
             }

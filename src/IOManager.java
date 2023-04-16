@@ -22,10 +22,10 @@ public class IOManager {
     static void Out(String text, int id, boolean idmode, int mode){
         if (idmode) {
             switch (mode) {
-                case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id-1]));
-                case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id-1]));
+                case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id]));
+                case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id]));
                 case 3 -> {
-                    printcli.print(MessageFormat.format(text + " [>]", Strings.ProductName[id-1]));
+                    printcli.print(MessageFormat.format(text + " [>]", Strings.ProductName[id]));
                     in.skip("\r\n|\r|\n");
                     in.nextLine();
                 }
@@ -44,10 +44,10 @@ public class IOManager {
     }
     static void Out(String text, int id, int number, int mode){
         switch (mode){
-            case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id-1], number));
-            case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id-1], number));
+            case 1 -> printcli.print(MessageFormat.format(text, Strings.ProductName[id], number));
+            case 2 -> printcli.println(MessageFormat.format(text, Strings.ProductName[id], number));
             case 3 -> {
-                printcli.print(MessageFormat.format(text+" [>]", Strings.ProductName[id-1], number));
+                printcli.print(MessageFormat.format(text+" [>]", Strings.ProductName[id], number));
                 in.skip("\r\n|\r|\n");
                 in.nextLine();
             }
@@ -57,12 +57,12 @@ public class IOManager {
         System.out.print("\033\143");
     }
     static String Input(int request){
-        printcli.print("["+Strings.InputmodesName[request]+"] >>> ");
+        printcli.print("["+Strings.InputmodesName[request]+"] >> ");
         return in.next();
     }
     static int Input(int request, int r1, int r2){
         try {
-            printcli.print(MessageFormat.format("[{0}][{1,number,#}-{2,number,#}] >>> ", Strings.InputmodesName[request], r1, r2));
+            printcli.print(MessageFormat.format("[{0}][{1,number,#}-{2,number,#}] >> ", Strings.InputmodesName[request], r1, r2));
             int input = Integer.parseInt(in.next());
             if (input>=r1 && input<=r2) return input;
             return -1;

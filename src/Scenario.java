@@ -18,7 +18,7 @@ public class Scenario {
             IOManager.Clear();
             IOManager.Out(Strings.PlanetName[planet],2);
             inv.printTable();
-            IOManager.Out(Strings.DaysLeft,dayscnt,false,2);
+            IOManager.Out(Strings.DaysLeft,days,false,2);
             if (inputproblem) {
                 IOManager.Out(Strings.InvalidInput,2);
                 inputproblem = false;
@@ -33,7 +33,7 @@ public class Scenario {
                     IOManager.Out(Strings.SkipDay,3);
                     inv.refreshPrices(planet);
                     inv.tick();
-                    dayscnt--;
+                    days--;
                 }
                 case "h","help" -> IOManager.Out(Strings.Help,3);
                 case "q","quit" -> {
@@ -71,9 +71,7 @@ public class Scenario {
         numberedanswer = IOManager.Input(2,0,available);
         if (numberedanswer == -1) {
             inputproblem = true;
-            return;
-        }
-        if (numberedanswer > available) {
+        } else if (numberedanswer > available) {
             IOManager.Out(Strings.NotEnoughMoney,numberedanswer,true, 3);
         } else if (numberedanswer > (inv.capacity - inv.calculateOccupied())) {
             IOManager.Out(Strings.NotEnoughStorage,3);
@@ -114,14 +112,13 @@ public class Scenario {
         if (numberedanswer == -1) {
             inputproblem = true;
             return;
-        }
-        if (numberedanswer == planet){
+        } else if (numberedanswer == planet){
             IOManager.Out(Strings.SamePlanet,3);
             return;
         }
         days--;
         inv.tick();
-        inv.Storage[0] = (inv.Storage[1] - fuelreq);
+        inv.Storage[1] -= fuelreq;
         planet = (byte) numberedanswer;
         inv.refreshPrices(planet);
         events();
@@ -159,7 +156,7 @@ public class Scenario {
         switch (answer){
             case "r","repay" -> {
                 IOManager.Out("How much you want to repay?",2);
-                numberedanswer = IOManager.Input(2,0,inv.money);
+                numberedanswer = IOManager.Input(2,0,inv.debt);
                 if (numberedanswer == -1) inputproblem = true;
                 else {
                     inv.money -= numberedanswer;
@@ -172,7 +169,7 @@ public class Scenario {
                     return;
                 }
                 IOManager.Out("How much you want to borrow?",2);
-                numberedanswer = IOManager.Input(2,0,300000);
+                numberedanswer = IOManager.Input(2,0,15000);
                 inv.debt += numberedanswer;
                 inv.money += numberedanswer;
                 inv.corplock = true;

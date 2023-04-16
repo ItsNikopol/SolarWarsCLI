@@ -1,7 +1,7 @@
 public class Strings {
 	//Items
     static String[] PlanetName = {"", "Earth", "Mars", "Jupiter", "Saturn", "Neptune", "Pluto"};
-    static String[] ProductName = {"Fuel", "Dilithum", "Holos", "Ore", "Meds", "Food", "Weapons", "Water"};
+    static String[] ProductName = {"","Fuel", "Dilithum", "Holos", "Ore", "Meds", "Food", "Weapons", "Water"};
     static String[] InputmodesName = {"Select","Menu","Count","Item","Planet","Action","Y/N"};
 	//Main menu
     static String Logo = "   _____       __                                   \n  / ___/____  / /___ _______      ______ ___________\n  \\__ \\/ __ \\/ / __ `/ ___/ | /| / / __ `/ ___/ ___/\n ___/ / /_/ / / /_/ / /   | |/ |/ / /_/ / /  (__  ) \n/____/\\____/_/\\__,_/_/    |__/|__/\\__,_/_/  /____/  ";
@@ -20,8 +20,8 @@ public class Strings {
 	static String Buy = "What to buy?";
     static String NotAvailable = "No one is trading this item here.";
     static String Price = "The price of {0} is {1,number,#}$.";
-    static String AvailableToBuy = "You can afford {0}.";
-    static String AvailableToSell = "You can sell up to {0}.";
+    static String AvailableToBuy = "You can afford {0,number,#}.";
+    static String AvailableToSell = "You can sell up to {0,number,#}.";
     static String HowManyToBuy = "How many do you want to buy?";
     static String HowManyToSell = "How many do you want to sell?";
 	static String Sell = "What to sell?";
