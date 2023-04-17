@@ -1,13 +1,26 @@
 public class Strings {
 	//Items
     static String[] PlanetName = {"", "Earth", "Mars", "Jupiter", "Saturn", "Neptune", "Pluto"};
-    static String[] ProductName = {"","Fuel", "Dilithum", "Holos", "Ore", "Meds", "Food", "Weapons", "Water"};
+    static String[] ProductName = {"","Fuel", "Dilithum", "Parts", "Ore", "Meds", "Food", "Weapons", "Water"};
     static String[] InputmodesName = {"Select","Menu","Count","Item","Planet","Action","Y/N"};
 	//Main menu
     static String Logo = "   _____       __                                   \n  / ___/____  / /___ _______      ______ ___________\n  \\__ \\/ __ \\/ / __ `/ ___/ | /| / / __ `/ ___/ ___/\n ___/ / /_/ / / /_/ / /   | |/ |/ / /_/ / /  (__  ) \n/____/\\____/_/\\__,_/_/    |__/|__/\\__,_/_/  /____/  ";
     static String Name = "Solarwars v0.10a";
     static String Help = "Game commands:\nBuying:\n[b]/[1] - Buy; [s]/[2] - Sell\nManaging money:\n[bk]/[3] - Bank; [c]/[4] - Corporation\nMoving:\n[w]/[5] - Warp to planet; [ff]/[6] - Skip day\nOther:\n[h] - Help; [q] - Quit from the game.";
     static String Modes = "[1] Normal Mode - 60 Days\n[2] Blitz Mode - 25 Days\n[3] Quit";
+	//Banks
+	static String NotOnEarth = "Arrive on the Earth first.";
+	static String WhatToDo = "What to do?";
+	static String CorpActions = "[r]epay, [b]orrow";
+	static String CorpRate = "Rate: 12.5%/day";
+	static String Repay = "How much you want to repay?";
+	static String Borrow = "How much you want to borrow?";
+	static String BankActions = "[d]eposit,[w]ithdraw";
+	static String BankRate = "Rate: 6.25%/day";
+	static String Deposit = "How much you want to deposit?";
+	static String Withdraw = "How much you want to withdraw?";
+	static String Charge = "Off-planet charge: 30%";
+
 	//Actions
     static String DaysLeft = "{0,number,#} days left.";
 	static String HelpMessage = "Type [h] to see list of commands.";
@@ -34,6 +47,12 @@ public class Strings {
     //Events
     static String ExpandStorage = "Do you want to expand storage for 10000$? (+80)";
     static String BuyGun = "Do you want to buy a gun for 10000$?";
+	static String PiratesChase = "Pirates are chasing you! [{0,number,#}] ships left.";
+	static String PiratesOnChase = "Pirates still chase you.";
+	static String PiratesActions = "[a]ttack/[r]un";
+	static String DestroyedShip = "You destroyed a ship.";
+	static String NoWeapon = "You don't have a weapon!";
+	static String Missed = "Missed!";
     static String PiratesLose = "You ran out of power, and were captured.\nThe pirates took all your cargo and half of your cash.";
     static String PiratesLoot = "You investigate inside a pirate ship...\nInside it, there was {0}!\nYou took {1,number,#} of it.";
     static String PiratesEscape = "You lost them in a dust cloud.";
@@ -43,4 +62,7 @@ public class Strings {
 	static String FoundItem = "You found some {0} on a abandoned ship!";
     static String Wormhole = "WORMHOLE!\nYou stumbled into a wormhole and come out 3 days earlier.";
     static String SalvageShip = "You salvage a Derelict Ship. +80 Bays and Cargo!";
+	//Ending
+	static String End = "You ran out of time.\nYou collected {0,number,#}$!";
+	
 }

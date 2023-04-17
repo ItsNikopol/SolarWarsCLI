@@ -13,7 +13,7 @@ public class IOManager {
             case 1 -> printcli.print(text);
             case 2 -> printcli.println(text);
             case 3 -> {
-                printcli.print(text+" [>]");
+                printcli.print(text+" [Enter]");
                 in.skip("\r\n|\r|\n");
                 in.nextLine();
             }

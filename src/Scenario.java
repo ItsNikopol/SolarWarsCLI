@@ -42,13 +42,12 @@ public class Scenario {
                         System.exit(0);
                     }
                 }
-                case "cls" -> inv.clear();
                 default -> IOManager.Out(Strings.InvalidInputHelp, 3);
             }
         }
-        IOManager.Out("Time's out!",3);
-        IOManager.Out("You collected "+(inv.money+inv.savings-inv.debt)+"$!",3);
-        IOManager.Out("See you next time!",3);
+		numberedanswer = inv.money+inv.savings-inv.debt;
+		IOManager.Out(Strings.End,numberedanswer,false,3);
+		
     }
     static void buy(){
         if (inv.capacity == inv.calculateOccupied()){
@@ -148,15 +147,16 @@ public class Scenario {
     }
     static void corporation(){
         if (planet != 1) {
-            IOManager.Out("Arrive on the Earth first.",3);
+            IOManager.Out(Strings.NotOnEarth,3);
             return;
         }
-        IOManager.Out("What do you want to do? [r]epay, [b]orrow",2);
-        IOManager.Out("Rate: 12.5%/day",2);
+        IOManager.Out(Strings.WhatToDo,2);
+		IOManager.Out(Strings.CorpActions,2);
+        IOManager.Out(Strings.CorpRate,2);
         answer = IOManager.Input(5);
         switch (answer){
             case "r","repay" -> {
-                IOManager.Out("How much you want to repay?",2);
+                IOManager.Out(Strings.Repay,2);
                 numberedanswer = IOManager.Input(2,0,inv.debt);
                 if (numberedanswer == -1) inputproblem = true;
                 else {
@@ -169,7 +169,7 @@ public class Scenario {
                     IOManager.Out(Strings.CorpLock,3);
                     return;
                 }
-                IOManager.Out("How much you want to borrow?",2);
+                IOManager.Out(Strings.Borrow,2);
                 numberedanswer = IOManager.Input(2,0,15000);
                 inv.debt += numberedanswer;
                 inv.money += numberedanswer;
@@ -178,17 +178,18 @@ public class Scenario {
         }
     }
     static void bank(){
-        IOManager.Out("What do you want to do? [d]eposit,[w]ithdraw",2);
-        IOManager.Out("Rate: 6.25%/day",2);
+        IOManager.Out(Strings.WhatToDo,2);
+		IOManager.Out(Strings.BankActions,2);
+        IOManager.Out(Strings.BankRate,2);
         switch (IOManager.Input(6)){
             case "d","deposit" -> {
-                IOManager.Out("How much you want to deposit?",2);
+                IOManager.Out(Strings.Deposit,2);
                 numberedanswer = IOManager.Input(2,0,inv.money);
                 if (numberedanswer == -1) {
                     inputproblem = true;
                 } else {
                     if (planet != 1) {
-                        IOManager.Out("Off-planet charge: 30%", 3);
+                        IOManager.Out(Strings.Charge, 3);
                         inv.savings = (int) ((inv.savings + numberedanswer) * 0.7);
                     }
                     else{
@@ -198,13 +199,13 @@ public class Scenario {
                 }
             }
             case "w","withdraw" -> {
-                IOManager.Out("How much you want to withdraw?",2);
+                IOManager.Out(Strings.Withdraw,2);
                 numberedanswer = IOManager.Input(2,0,inv.savings);
                 if (numberedanswer == -1) {
                     inputproblem = true;
                 } else {
                     if (planet != 1) {
-                        IOManager.Out("Off-planet charge: 30%", 3);
+                        IOManager.Out(Strings.Charge, 3);
                         inv.money = (int) ((inv.money + numberedanswer) * 0.7);
                     }
                     else {
@@ -221,32 +222,27 @@ public class Scenario {
         System.out.println("Awaiting debug RNG input"); numberedanswer = IOManager.Input(0,1,20);
         IOManager.rand.nextInt(1,20)
         */
-        System.out.println("Awaiting debug RNG input"); numberedanswer = IOManager.Input(0,1,20);
-        switch (numberedanswer){
+        switch (IOManager.rand.nextInt(1,20)){
             case 1 -> {
                 IOManager.Out(Strings.Wormhole,3);
                 days += 3;
             }
             case 2 -> {
-                IOManager.Out("PIRATES!",2);
                 outer:
                 while (pirates != 0) {
-                    IOManager.Out("Pirates are chasing you! ["+ pirates+"] ships left.",2);
-                    IOManager.Out("What to do? ",1);
-                    if (inv.gun) {
-                        IOManager.Out("[a]ttack/",1);
-                    }
-                    IOManager.Out("[r]un",2);
-                    answer = IOManager.Input(5);
-                    switch (answer) {
+					inputproblem = false;
+					IOManager.Out(Strings.PiratesChase,pirates,false,2);
+                    IOManager.Out(Strings.WhatToDo,2);
+                    IOManager.Out(Strings.PiratesActions,2);
+                    switch (IOManager.Input(5)) {
                         case "a" -> {
                             if (inv.gun) {
                                 if (IOManager.rand.nextInt(1,20) > 10) {
                                     pirates--;
-                                    IOManager.Out("You destroyed a ship.",2);
-                                } else { IOManager.Out("Missed!",2);}
+                                    IOManager.Out(Strings.DestroyedShip,2);
+                                } else { IOManager.Out(Strings.Missed,2);}
                             } else {
-                                IOManager.Out("You don't have a weapon!",3);}
+                                IOManager.Out(Strings.NoWeapon,3);}
                         }
                         case "r" -> {
                             if (IOManager.rand.nextInt(1,20) > 13) {
@@ -254,22 +250,29 @@ public class Scenario {
                                 break outer;
                             }
                         }
-                        default -> IOManager.Out(Strings.InvalidInput,3);
+                        default -> {
+							IOManager.Out(Strings.InvalidInput,3);
+							inputproblem = true;
+						}
                     }
-                    if (IOManager.rand.nextInt(1,20) <= 2){
-                        inv.clear();
-                        inv.money = (int) (inv.money * 0.2);
-                        IOManager.Out(Strings.PiratesLose,3);
-                    }
-                    else if (pirates > 0){
-                        IOManager.Out("Pirates still chase you.",3);
-                    }
-                }
-                if (pirates == 0){
-                    index = IOManager.rand.nextInt(1,8);
-                    numberedanswer = IOManager.rand.nextInt(3,20);
-                    inv.add(index,numberedanswer,false);
-                    IOManager.Out(Strings.PiratesLoot,index,numberedanswer,3);
+					if (!inputproblem){
+						if (IOManager.rand.nextInt(1,20) <= 2){
+							inv.clear();
+							inv.money = (int) (inv.money * 0.2);
+							IOManager.Out(Strings.PiratesLose,3);
+							break outer;
+						}
+						else if (pirates > 0){
+							IOManager.Out(Strings.PiratesOnChase,3);
+						}
+						if (pirates == 0){
+							index = IOManager.rand.nextInt(1,8);
+							numberedanswer = IOManager.rand.nextInt(3,20);
+							inv.add(index,numberedanswer,false);
+							IOManager.Out(Strings.PiratesLoot,index,numberedanswer,3);
+						}
+					}
+                    
                 }
             }
             case 3 -> {

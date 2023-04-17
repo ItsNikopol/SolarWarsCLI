@@ -8,3 +8,4 @@ jar cfm SolarWars.jar MANIFEST.MF *.class
 del *.class
 del MANIFEST.MF
 Echo Done.
+pause

@@ -6,7 +6,7 @@ public class StorageManager {
     int[] Storage = new int[9];
     int[] Prices = new int[9];
     int money = 0, debt = 0, savings = 0, capacity = 100;
-    boolean gun = true, corplock = false;
+    boolean gun = false, corplock = false;
     void refreshPrices(int mode){
         Prices[1] = IOManager.rand.nextInt(150,2000);
         Prices[2] = IOManager.rand.nextInt(5000,30000);
