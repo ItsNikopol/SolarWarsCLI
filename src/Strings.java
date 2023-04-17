@@ -1,10 +1,10 @@
 import java.util.ListResourceBundle;
-
+@SuppressWarnings("unused")
 public class Strings extends ListResourceBundle {
 	protected Object[][] getContents() {
 		return new Object[][] {
 				{"Logo", "   _____       __                                   \n  / ___/____  / /___ _______      ______ ___________\n  \\__ \\/ __ \\/ / __ `/ ___/ | /| / / __ `/ ___/ ___/\n ___/ / /_/ / / /_/ / /   | |/ |/ / /_/ / /  (__  ) \n/____/\\____/_/\\__,_/_/    |__/|__/\\__,_/_/  /____/  "},
-				{"Name", "Solarwars v0.10a"},
+				{"Name", "Solarwars v0.11a"},
 				{"Help", "Game commands:\nBuying:\n[b]/[1] - Buy; [s]/[2] - Sell\nManaging money:\n[bk]/[3] - Bank; [c]/[4] - Corporation\nMoving:\n[w]/[5] - Warp to planet; [ff]/[6] - Skip day\nOther:\n[h] - Help; [q] - Quit from the game."},
 				{"Modes", "[1] Normal Mode - 60 Days\n[2] Blitz Mode - 25 Days\n[3] Quit"},
 				//Planets

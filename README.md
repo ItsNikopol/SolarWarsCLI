@@ -1,6 +1,6 @@
 # Solarwars (CLI)
 
-SolarwarsCLI is a java port of [Solarwars game for Palm computers](https://archive.org/details/tucows_57639_SolarWars) which is an updated version of "DrugWars."
+SolarwarsCLI is an updated version of [Solarwars game for Palm computers](https://archive.org/details/tucows_57639_SolarWars) which is an updated version of "DrugWars."
 Moving away from the original drug theme (deemed offensive by some), the object of SolarWars is to warp around the solar system, making money buying and selling cargo.
 
 ## Requirements:
