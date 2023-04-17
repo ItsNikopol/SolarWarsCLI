@@ -37,14 +37,14 @@ public class StorageManager {
                         "ID{0} [{1}] {2} N/A",
                         i,
                         Storage[i],
-                        Strings.ProductName[i]
+                        IOManager.ProductName(i)
                 ));
             } else {
                 System.out.println(MessageFormat.format(
                         "ID{0} [{1}] {2} {3,number,#}$",
                         i,
                         Storage[i],
-                        Strings.ProductName[i],
+                        IOManager.ProductName(i),
                         Prices[i]
                 ));
             }

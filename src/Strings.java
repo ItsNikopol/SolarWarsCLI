@@ -1,68 +1,91 @@
-public class Strings {
-	//Items
-    static String[] PlanetName = {"", "Earth", "Mars", "Jupiter", "Saturn", "Neptune", "Pluto"};
-    static String[] ProductName = {"","Fuel", "Dilithum", "Parts", "Ore", "Meds", "Food", "Weapons", "Water"};
-    static String[] InputmodesName = {"Select","Menu","Count","Item","Planet","Action","Y/N"};
-	//Main menu
-    static String Logo = "   _____       __                                   \n  / ___/____  / /___ _______      ______ ___________\n  \\__ \\/ __ \\/ / __ `/ ___/ | /| / / __ `/ ___/ ___/\n ___/ / /_/ / / /_/ / /   | |/ |/ / /_/ / /  (__  ) \n/____/\\____/_/\\__,_/_/    |__/|__/\\__,_/_/  /____/  ";
-    static String Name = "Solarwars v0.10a";
-    static String Help = "Game commands:\nBuying:\n[b]/[1] - Buy; [s]/[2] - Sell\nManaging money:\n[bk]/[3] - Bank; [c]/[4] - Corporation\nMoving:\n[w]/[5] - Warp to planet; [ff]/[6] - Skip day\nOther:\n[h] - Help; [q] - Quit from the game.";
-    static String Modes = "[1] Normal Mode - 60 Days\n[2] Blitz Mode - 25 Days\n[3] Quit";
-	//Banks
-	static String NotOnEarth = "Arrive on the Earth first.";
-	static String WhatToDo = "What to do?";
-	static String CorpActions = "[r]epay, [b]orrow";
-	static String CorpRate = "Rate: 12.5%/day";
-	static String Repay = "How much you want to repay?";
-	static String Borrow = "How much you want to borrow?";
-	static String BankActions = "[d]eposit,[w]ithdraw";
-	static String BankRate = "Rate: 6.25%/day";
-	static String Deposit = "How much you want to deposit?";
-	static String Withdraw = "How much you want to withdraw?";
-	static String Charge = "Off-planet charge: 30%";
+import java.util.ListResourceBundle;
 
-	//Actions
-    static String DaysLeft = "{0,number,#} days left.";
-	static String HelpMessage = "Type [h] to see list of commands.";
-    static String SkipDay = "Skipping day...";
-	static String ExitMessage = "Do you really want to exit? Progress won't be saved. [y/n]";
-    static String InvalidInput = "Invalid Input.";
-	static String InvalidInputHelp = "Invalid input.\nYou may want to type [h] to see list of commands.";
-	static String FullStorage = "Storage is full.";
-    static String NotEnoughStorage = "Not enough storage!";
-	static String Buy = "What to buy?";
-    static String NotAvailable = "No one is trading this item here.";
-    static String Price = "The price of {0} is {1,number,#}$.";
-    static String AvailableToBuy = "You can afford {0,number,#}.";
-    static String AvailableToSell = "You can sell up to {0,number,#}.";
-    static String HowManyToBuy = "How many do you want to buy?";
-    static String HowManyToSell = "How many do you want to sell?";
-	static String Sell = "What to sell?";
-    static String NotEnoughMoney = "You don't have enough money to afford {0} of these!";
-    static String NotEnoughItems = "You don't have enough {0} to sell!";
-    static String NotEnoughFuel = "You need at least {0,number,#} fuel to warp.";
-    static String WhereTo = "Where to go?";
-    static String SamePlanet = "You can't warp on the same planet.";
-    static String CorpLock = "The corporation will not loan you any more money today.";
-    //Events
-    static String ExpandStorage = "Do you want to expand storage for 10000$? (+80)";
-    static String BuyGun = "Do you want to buy a gun for 10000$?";
-	static String PiratesChase = "Pirates are chasing you! [{0,number,#}] ships left.";
-	static String PiratesOnChase = "Pirates still chase you.";
-	static String PiratesActions = "[a]ttack/[r]un";
-	static String DestroyedShip = "You destroyed a ship.";
-	static String NoWeapon = "You don't have a weapon!";
-	static String Missed = "Missed!";
-    static String PiratesLose = "You ran out of power, and were captured.\nThe pirates took all your cargo and half of your cash.";
-    static String PiratesLoot = "You investigate inside a pirate ship...\nInside it, there was {0}!\nYou took {1,number,#} of it.";
-    static String PiratesEscape = "You lost them in a dust cloud.";
-    static String Underproduction = "Underproduction! {0} prices increased!";
-    static String Overproduction = "Overproduction! {0} on sale.";
-    static String AllDemand = "New colony established. All items in demand.";
-	static String FoundItem = "You found some {0} on a abandoned ship!";
-    static String Wormhole = "WORMHOLE!\nYou stumbled into a wormhole and come out 3 days earlier.";
-    static String SalvageShip = "You salvage a Derelict Ship. +80 Bays and Cargo!";
-	//Ending
-	static String End = "You ran out of time.\nYou collected {0,number,#}$!";
-	
+public class Strings extends ListResourceBundle {
+	protected Object[][] getContents() {
+		return new Object[][] {
+				{"Logo", "   _____       __                                   \n  / ___/____  / /___ _______      ______ ___________\n  \\__ \\/ __ \\/ / __ `/ ___/ | /| / / __ `/ ___/ ___/\n ___/ / /_/ / / /_/ / /   | |/ |/ / /_/ / /  (__  ) \n/____/\\____/_/\\__,_/_/    |__/|__/\\__,_/_/  /____/  "},
+				{"Name", "Solarwars v0.10a"},
+				{"Help", "Game commands:\nBuying:\n[b]/[1] - Buy; [s]/[2] - Sell\nManaging money:\n[bk]/[3] - Bank; [c]/[4] - Corporation\nMoving:\n[w]/[5] - Warp to planet; [ff]/[6] - Skip day\nOther:\n[h] - Help; [q] - Quit from the game."},
+				{"Modes", "[1] Normal Mode - 60 Days\n[2] Blitz Mode - 25 Days\n[3] Quit"},
+				//Planets
+				{"Earth", "Earth"},
+				{"Mars", "Mars"},
+				{"Jupiter", "Jupiter"},
+				{"Saturn", "Saturn"},
+				{"Neptune", "Neptune"},
+				{"Pluto", "Pluto"},
+				//Products
+				{"Fuel", "Fuel"},
+				{"Dilithum", "Dilithum"},
+				{"Parts", "Parts"},
+				{"Ore", "Ore"},
+				{"Meds", "Meds"},
+				{"Food", "Food"},
+				{"Weapons", "Weapons"},
+				{"Water", "Water"},
+				//Input Modes
+				{"Select", "Select"},
+				{"Menu", "Menu"},
+				{"Count", "Count"},
+				{"Item", "Item"},
+				{"Planet", "Planet"},
+				{"Action", "Action"},
+				{"Y/N", "Y/N"},
+				//Money
+				{"NotOnEarth", "Arrive on the Earth first."},
+				{"WhatToDo", "What to do?"},
+				{"CorpActions", "[r]epay, [b]orrow"},
+				{"CorpRate", "Rate: 12.5%/day"},
+				{"Repay", "How much you want to repay?"},
+				{"Borrow", "How much you want to borrow?"},
+				{"BankActions", "[d]eposit,[w]ithdraw"},
+				{"BankRate", "Rate: 6.25%/day"},
+				{"Deposit", "How much you want to deposit?"},
+				{"Withdraw", "How much you want to withdraw?"},
+				{"Charge", "Off-planet charge: 30%"},
+				//Actions
+				{"DaysLeft", "{0,number,#} days left."},
+				{"HelpMessage", "Type [h] to see list of commands."},
+				{"SkipDay", "Skipping day..."},
+				{"ExitMessage", "Do you really want to exit? Progress won't be saved. [y/n]"},
+				{"InvalidInput", "Invalid Input."},
+				{"InvalidInputHelp", "Invalid input.\nYou may want to type [h] to see list of commands."},
+				{"FullStorage", "Storage is full."},
+				{"NotEnoughStorage", "Not enough storage!"},
+				{"Buy", "What to buy?"},
+				{"NotAvailable", "No one is trading this item here."},
+				{"Price", "The price of {0} is {1,number,#}$."},
+				{"AvailableToBuy", "You can afford {0,number,#}."},
+				{"AvailableToSell", "You can sell up to {0,number,#}."},
+				{"HowManyToBuy", "How many do you want to buy?"},
+				{"HowManyToSell", "How many do you want to sell?"},
+				{"Sell", "What to sell?"},
+				{"NotEnoughMoney", "You don't have enough money to afford {0} of these!"},
+				{"NotEnoughItems", "You don't have enough {0} to sell!"},
+				{"NotEnoughFuel", "You need at least {0,number,#} fuel to warp."},
+				{"WhereTo", "Where to go?"},
+				{"SamePlanet", "You can't warp on the same planet."},
+				{"CorpLock", "The corporation will not loan you any more money today."},
+				//Events
+				{"ExpandStorage", "Do you want to expand storage for 10000$? (+80)"},
+				{"BuyGun", "Do you want to buy a gun for 10000$?"},
+				{"PiratesChase", "Pirates are chasing you! [{0,number,#}] ships left."},
+				{"PiratesOnChase", "Pirates still chase you."},
+				{"PiratesActions", "[a]ttack/[r]un"},
+				{"DestroyedShip", "You destroyed a ship."},
+				{"NoWeapon", "You don't have a weapon!"},
+				{"Missed", "Missed!"},
+				{"PiratesLose", "You ran out of power, and were captured.\nThe pirates took all your cargo and half of your cash."},
+				{"PiratesLoot", "You investigate inside a pirate ship...\nInside it, there was {0}!\nYou took {1,number,#} of it."},
+				{"PiratesEscape", "You lost them in a dust cloud."},
+				{"Underproduction", "Underproduction! {0} prices increased!"},
+				{"Overproduction", "Overproduction! {0} on sale."},
+				{"AllDemand", "New colony established. All items in demand."},
+				{"FoundItem", "You found some {0} on a abandoned ship!"},
+				{"Wormhole", "WORMHOLE!\nYou stumbled into a wormhole and come out 3 days earlier."},
+				{"SalvageShip", "You salvage a Derelict Ship. +80 Bays and Cargo!"},
+				//Ending
+				{"End", "You ran out of time.\nYou collected {0,number,#}$!"},
+		};
+	}
 }
