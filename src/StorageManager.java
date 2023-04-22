@@ -21,9 +21,6 @@ public class StorageManager {
             Prices[7] = IOManager.rand.nextInt(2000,15000);
         }
         Prices[8] = IOManager.rand.nextInt(100,2000);
-        if (mode == 2){
-            Prices[8] = (int) (Prices[7] * 1.2);
-        }
         Prices[IOManager.rand.nextInt(2,8)] = 0;
         Prices[IOManager.rand.nextInt(2,8)] = 0;
     }

@@ -2,7 +2,7 @@ import java.util.Objects;
 
 public class Scenario {
     static StorageManager inv = new StorageManager();
-    static int numberedanswer, index, available, days;
+    static int value1, value2, available, days;
     static boolean inputproblem;
     static String answer;
     static byte pirates = 3;
@@ -12,7 +12,7 @@ public class Scenario {
         days = dayscnt;
         IOManager.Out(Main.Strings.getString("HelpMessage"),3);
         inv.money = 10000;
-        inv.debt = 10000;
+        inv.debt = 30000;
         inv.refreshPrices(1);
         while (days>0) {
             IOManager.Clear();
@@ -23,7 +23,7 @@ public class Scenario {
                 IOManager.Out(Main.Strings.getString("InvalidInput"),2);
                 inputproblem = false;
             }
-            switch (IOManager.Input(1)) {
+            switch (IOManager.Input(2)) {
                 case "b","buy","1" -> buy();
                 case "s","sell","2" -> sell();
                 case "bk","bank","3" -> bank();
@@ -36,17 +36,18 @@ public class Scenario {
                     days--;
                 }
                 case "h","help" -> IOManager.Out(Main.Strings.getString("Help"),3);
+                case "set","settings" -> Main.settings(false);
                 case "q","quit" -> {
                     IOManager.Out(Main.Strings.getString("ExitMessage"),2);
-                    if (Objects.equals(IOManager.Input(6), "Y")){
+                    if (Objects.equals(IOManager.Input(7), "Y")){
                         System.exit(0);
                     }
                 }
                 default -> IOManager.Out(Main.Strings.getString("InvalidInputHelp"), 3);
             }
         }
-		numberedanswer = inv.money+inv.savings-inv.debt;
-		IOManager.Out(Main.Strings.getString("End"),numberedanswer,false,3);
+		value1 = inv.money+inv.savings-inv.debt;
+		IOManager.Out(Main.Strings.getString("End"), value1,false,3);
 		
     }
     static void buy(){
@@ -54,51 +55,51 @@ public class Scenario {
             IOManager.Out(Main.Strings.getString("FullStorage"), 3); return;
         }
         IOManager.Out(Main.Strings.getString("Buy"),2);
-        numberedanswer = IOManager.Input(3,1,8);
-        if (numberedanswer == -1) {
+        value1 = IOManager.Input(4,1,8);
+        if (value1 == -1) {
             inputproblem = true;
             return;
-        } else if (inv.Prices[numberedanswer] == 0){
+        } else if (inv.Prices[value1] == 0){
             IOManager.Out(Main.Strings.getString("NotAvailable"),3);
             return;
         }
-        index = numberedanswer;
-        available = inv.money/inv.Prices[numberedanswer];
-        IOManager.Out(Main.Strings.getString("Price"),numberedanswer,inv.Prices[numberedanswer],2);
+        value2 = value1;
+        available = inv.money/inv.Prices[value1];
+        IOManager.Out(Main.Strings.getString("Price"), value1,inv.Prices[value1],2);
         IOManager.Out(Main.Strings.getString("AvailableToBuy"),available,false,2);
         IOManager.Out(Main.Strings.getString("HowManyToBuy"),2);
-        numberedanswer = IOManager.Input(2,0,available);
-        if (numberedanswer == -1) {
+        value1 = IOManager.Input(2,0,available);
+        if (value1 == -1) {
             inputproblem = true;
-        } else if (numberedanswer > available) {
-            IOManager.Out(Main.Strings.getString("NotEnoughMoney"),numberedanswer,true, 3);
-        } else if (numberedanswer > (inv.capacity - inv.calculateOccupied())) {
+        } else if (value1 > available) {
+            IOManager.Out(Main.Strings.getString("NotEnoughMoney"), value1,true, 3);
+        } else if (value1 > (inv.capacity - inv.calculateOccupied())) {
             IOManager.Out(Main.Strings.getString("NotEnoughStorage"),3);
         } else {
-            inv.add(index,numberedanswer,true);
+            inv.add(value2, value1,true);
         }
     }
     static void sell(){
         IOManager.Out(Main.Strings.getString("Sell"),2);
-        numberedanswer = IOManager.Input(3,1,8);
-        index = numberedanswer;
-        if (numberedanswer == -1) {
+        value1 = IOManager.Input(3,1,8);
+        value2 = value1;
+        if (value1 == -1) {
             inputproblem = true;
             return;
         }
-        if (inv.Prices[numberedanswer] == 0){
+        if (inv.Prices[value1] == 0){
             IOManager.Out(Main.Strings.getString("NotAvailable"),3);
             return;
         }
-        IOManager.Out(Main.Strings.getString("Price"),numberedanswer,inv.Prices[numberedanswer],2);
-        IOManager.Out(Main.Strings.getString("AvailableToSell"),inv.Storage[numberedanswer],false,2);
+        IOManager.Out(Main.Strings.getString("Price"), value1,inv.Prices[value1],2);
+        IOManager.Out(Main.Strings.getString("AvailableToSell"),inv.Storage[value1],false,2);
         IOManager.Out(Main.Strings.getString("HowManyToSell"),2);
-        numberedanswer = IOManager.Input(2,0,inv.Storage[numberedanswer]);
-        if (numberedanswer == -1) {
+        value1 = IOManager.Input(2,0,inv.Storage[value1]);
+        if (value1 == -1) {
             inputproblem = true;
         }
         else {
-            inv.remove(index,numberedanswer,true);
+            inv.remove(value2, value1,true);
         }
     }
     static void warp(){
@@ -107,26 +108,26 @@ public class Scenario {
             return;
         }
         IOManager.Out(Main.Strings.getString("WhereTo"),2);
-        numberedanswer = IOManager.Input(4,1,6);
-        if (numberedanswer == -1) {
+        value1 = IOManager.Input(4,1,6);
+        if (value1 == -1) {
             inputproblem = true;
             return;
-        } else if (numberedanswer == planet){
+        } else if (value1 == planet){
             IOManager.Out(Main.Strings.getString("SamePlanet"),3);
             return;
         }
         days--;
         inv.tick();
         inv.Storage[1] -= fuelreq;
-        planet = (byte) numberedanswer;
+        planet = (byte) value1;
         inv.refreshPrices(planet);
         events();
         pirates = 3;
-        switch (numberedanswer) {
+        switch (value1) {
             case 5 -> {
                 if (inv.money>10000) {
                     IOManager.Out(Main.Strings.getString("ExpandStorage"),2);
-                    if (Objects.equals(IOManager.Input(6), "Y")) {
+                    if (Objects.equals(IOManager.Input(7), "Y")) {
                         inv.capacity += 80;
                         fuelreq++;
                         inv.money -= 10000;
@@ -137,7 +138,7 @@ public class Scenario {
                 if (inv.money<10000) break;
                 if (!inv.gun) {
                     IOManager.Out(Main.Strings.getString("BuyGun"),2);
-                    if (Objects.equals(IOManager.Input(6), "Y")) {
+                    if (Objects.equals(IOManager.Input(7), "Y")) {
                         inv.gun = true;
                         inv.money -= 10000;
                     }
@@ -157,11 +158,13 @@ public class Scenario {
         switch (answer){
             case "r","repay" -> {
                 IOManager.Out(Main.Strings.getString("Repay"),2);
-                numberedanswer = IOManager.Input(2,0,inv.debt);
-                if (numberedanswer == -1) inputproblem = true;
-                else {
-                    inv.money -= numberedanswer;
-                    inv.debt -= numberedanswer;
+                value1 = IOManager.Input(2,0,inv.debt);
+                if (value1 == -1) inputproblem = true;
+				else if (value1 >inv.money) {
+					IOManager.Out(Main.Strings.getString("NotEnoughMoney"),3);
+				} else {
+                    inv.money -= value1;
+                    inv.debt -= value1;
                 }
             }
             case "b","borrow" -> {
@@ -170,9 +173,9 @@ public class Scenario {
                     return;
                 }
                 IOManager.Out(Main.Strings.getString("Borrow"),2);
-                numberedanswer = IOManager.Input(2,0,15000);
-                inv.debt += numberedanswer;
-                inv.money += numberedanswer;
+                value1 = IOManager.Input(2,0,15000);
+                inv.debt += value1;
+                inv.money += value1;
                 inv.corplock = true;
             }
         }
@@ -184,34 +187,34 @@ public class Scenario {
         switch (IOManager.Input(6)){
             case "d","deposit" -> {
                 IOManager.Out(Main.Strings.getString("Deposit"),2);
-                numberedanswer = IOManager.Input(2,0,inv.money);
-                if (numberedanswer == -1) {
+                value1 = IOManager.Input(2,0,inv.money);
+                if (value1 == -1) {
                     inputproblem = true;
                 } else {
                     if (planet != 1) {
                         IOManager.Out(Main.Strings.getString("Charge"), 3);
-                        inv.savings = (int) ((inv.savings + numberedanswer) * 0.7);
+                        inv.savings = (int) ((inv.savings + value1) * 0.7);
                     }
                     else{
-                        inv.savings = inv.savings + numberedanswer;
+                        inv.savings = inv.savings + value1;
                     }
-                    inv.money = inv.money - numberedanswer;
+                    inv.money = inv.money - value1;
                 }
             }
             case "w","withdraw" -> {
                 IOManager.Out(Main.Strings.getString("Withdraw"),2);
-                numberedanswer = IOManager.Input(2,0,inv.savings);
-                if (numberedanswer == -1) {
+                value1 = IOManager.Input(2,0,inv.savings);
+                if (value1 == -1) {
                     inputproblem = true;
                 } else {
                     if (planet != 1) {
                         IOManager.Out(Main.Strings.getString("Charge"), 3);
-                        inv.money = (int) ((inv.money + numberedanswer) * 0.7);
+                        inv.money = (int) ((inv.money + value1) * 0.7);
                     }
                     else {
-                        inv.money = inv.money + numberedanswer;
+                        inv.money = inv.money + value1;
                     }
-                    inv.savings = inv.savings - numberedanswer;
+                    inv.savings = inv.savings - value1;
                 }
             }
         }
@@ -266,34 +269,34 @@ public class Scenario {
 							IOManager.Out(Main.Strings.getString("PiratesOnChase"),3);
 						}
 						if (pirates == 0){
-							index = IOManager.rand.nextInt(1,8);
-							numberedanswer = IOManager.rand.nextInt(3,20);
-							inv.add(index,numberedanswer,false);
-							IOManager.Out(Main.Strings.getString("PiratesLoot"),index,numberedanswer,3);
+							value2 = IOManager.rand.nextInt(1,8);
+							value1 = IOManager.rand.nextInt(3,20);
+							inv.add(value2, value1,false);
+							IOManager.Out(Main.Strings.getString("PiratesLoot"), value2, value1,3);
 						}
 					}
                     
                 }
             }
             case 3 -> {
-                numberedanswer = IOManager.rand.nextInt(1,8);
-                IOManager.Out(Main.Strings.getString("Underproduction"),numberedanswer,true,3);
-                inv.manipulate(numberedanswer, true);
+                value1 = IOManager.rand.nextInt(1,8);
+                IOManager.Out(Main.Strings.getString("Underproduction"), value1,true,3);
+                inv.manipulate(value1, true);
             }
             case 4 -> {
-                numberedanswer = IOManager.rand.nextInt(1,8);
-                IOManager.Out(Main.Strings.getString("Overproduction"),numberedanswer,true,3);
-                inv.manipulate(numberedanswer, false);
+                value1 = IOManager.rand.nextInt(1,8);
+                IOManager.Out(Main.Strings.getString("Overproduction"), value1,true,3);
+                inv.manipulate(value1, false);
             }
             case 5 -> {
                 IOManager.Out(Main.Strings.getString("AllDemand"),3);
                 inv.manipulate(true);
             }
             case 6 -> {
-                index = IOManager.rand.nextInt(1,8);
-                numberedanswer = IOManager.rand.nextInt(3,5);
-                IOManager.Out(Main.Strings.getString("FoundItem"),index,true,3);
-                inv.add(index,numberedanswer,false);
+                value2 = IOManager.rand.nextInt(1,8);
+                value1 = IOManager.rand.nextInt(3,5);
+                IOManager.Out(Main.Strings.getString("FoundItem"), value2,true,3);
+                inv.add(value2, value1,false);
             }
             case 7 -> {
                 IOManager.Out(Main.Strings.getString("SalvageShip"),3);

@@ -1,12 +1,13 @@
 import java.util.ListResourceBundle;
 @SuppressWarnings("unused")
-public class Strings extends ListResourceBundle {
+public class Locale extends ListResourceBundle {
 	protected Object[][] getContents() {
 		return new Object[][] {
 				{"Logo", "   _____       __                                   \n  / ___/____  / /___ _______      ______ ___________\n  \\__ \\/ __ \\/ / __ `/ ___/ | /| / / __ `/ ___/ ___/\n ___/ / /_/ / / /_/ / /   | |/ |/ / /_/ / /  (__  ) \n/____/\\____/_/\\__,_/_/    |__/|__/\\__,_/_/  /____/  "},
-				{"Name", "Solarwars v0.11a"},
-				{"Help", "Game commands:\nBuying:\n[b]/[1] - Buy; [s]/[2] - Sell\nManaging money:\n[bk]/[3] - Bank; [c]/[4] - Corporation\nMoving:\n[w]/[5] - Warp to planet; [ff]/[6] - Skip day\nOther:\n[h] - Help; [q] - Quit from the game."},
-				{"Modes", "[1] Normal Mode - 60 Days\n[2] Blitz Mode - 25 Days\n[3] Quit"},
+				{"Help", "Game commands:\nBuying:\n[b]/[1] - Buy; [s]/[2] - Sell\nManaging money:\n[bk]/[3] - Bank; [c]/[4] - Corporation\nMoving:\n[w]/[5] - Warp to planet; [ff]/[6] - Skip day\nOther:\n[h] - Help; [set] - Настройки; [q] - Quit from the game."},
+				{"Modes", "[1] Normal Mode - 60 Days\n[2] Blitz Mode - 25 Days\n[3] Settings\n[4] Table of contents (Nothing here, oops)\n[5] Quit"},
+				{"Language", "Select Language:\n[1] - English\n[2] - Russian"},
+				{"Settings", "[1] Language\n[0] Return"},
 				//Planets
 				{"Earth", "Earth"},
 				{"Mars", "Mars"},
@@ -16,7 +17,7 @@ public class Strings extends ListResourceBundle {
 				{"Pluto", "Pluto"},
 				//Products
 				{"Fuel", "Fuel"},
-				{"Dilithum", "Dilithum"},
+				{"Dilithum", "Antimatter"},
 				{"Parts", "Parts"},
 				{"Ore", "Ore"},
 				{"Meds", "Meds"},
@@ -47,7 +48,7 @@ public class Strings extends ListResourceBundle {
 				{"DaysLeft", "{0,number,#} days left."},
 				{"HelpMessage", "Type [h] to see list of commands."},
 				{"SkipDay", "Skipping day..."},
-				{"ExitMessage", "Do you really want to exit? Progress won't be saved. [y/n]"},
+				{"ExitMessage", "Do you really want to exit? Progress won't be saved."},
 				{"InvalidInput", "Invalid Input."},
 				{"InvalidInputHelp", "Invalid input.\nYou may want to type [h] to see list of commands."},
 				{"FullStorage", "Storage is full."},
@@ -60,7 +61,7 @@ public class Strings extends ListResourceBundle {
 				{"HowManyToBuy", "How many do you want to buy?"},
 				{"HowManyToSell", "How many do you want to sell?"},
 				{"Sell", "What to sell?"},
-				{"NotEnoughMoney", "You don't have enough money to afford {0} of these!"},
+				{"NotEnoughMoney", "You don't have enough money!"},
 				{"NotEnoughItems", "You don't have enough {0} to sell!"},
 				{"NotEnoughFuel", "You need at least {0,number,#} fuel to warp."},
 				{"WhereTo", "Where to go?"},
