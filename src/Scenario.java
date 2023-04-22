@@ -12,7 +12,7 @@ public class Scenario {
         days = dayscnt;
         IOManager.Out(Main.Strings.getString("HelpMessage"),3);
         inv.money = 10000;
-        inv.debt = 30000;
+        inv.debt = 20000;
         inv.refreshPrices(1);
         while (days>0) {
             IOManager.Clear();
@@ -68,7 +68,7 @@ public class Scenario {
         IOManager.Out(Main.Strings.getString("Price"), value1,inv.Prices[value1],2);
         IOManager.Out(Main.Strings.getString("AvailableToBuy"),available,false,2);
         IOManager.Out(Main.Strings.getString("HowManyToBuy"),2);
-        value1 = IOManager.Input(2,0,available);
+        value1 = IOManager.Input(3,0,available);
         if (value1 == -1) {
             inputproblem = true;
         } else if (value1 > available) {
@@ -81,7 +81,7 @@ public class Scenario {
     }
     static void sell(){
         IOManager.Out(Main.Strings.getString("Sell"),2);
-        value1 = IOManager.Input(3,1,8);
+        value1 = IOManager.Input(4,1,8);
         value2 = value1;
         if (value1 == -1) {
             inputproblem = true;
@@ -94,7 +94,7 @@ public class Scenario {
         IOManager.Out(Main.Strings.getString("Price"), value1,inv.Prices[value1],2);
         IOManager.Out(Main.Strings.getString("AvailableToSell"),inv.Storage[value1],false,2);
         IOManager.Out(Main.Strings.getString("HowManyToSell"),2);
-        value1 = IOManager.Input(2,0,inv.Storage[value1]);
+        value1 = IOManager.Input(3,0,inv.Storage[value1]);
         if (value1 == -1) {
             inputproblem = true;
         }
@@ -154,11 +154,11 @@ public class Scenario {
         IOManager.Out(Main.Strings.getString("WhatToDo"),2);
 		IOManager.Out(Main.Strings.getString("CorpActions"),2);
         IOManager.Out(Main.Strings.getString("CorpRate"),2);
-        answer = IOManager.Input(5);
+        answer = IOManager.Input(6);
         switch (answer){
-            case "r","repay" -> {
+            case "r","repay","1" -> {
                 IOManager.Out(Main.Strings.getString("Repay"),2);
-                value1 = IOManager.Input(2,0,inv.debt);
+                value1 = IOManager.Input(3,0,inv.debt);
                 if (value1 == -1) inputproblem = true;
 				else if (value1 >inv.money) {
 					IOManager.Out(Main.Strings.getString("NotEnoughMoney"),3);
@@ -167,13 +167,13 @@ public class Scenario {
                     inv.debt -= value1;
                 }
             }
-            case "b","borrow" -> {
+            case "b","borrow","2" -> {
                 if (inv.corplock){
                     IOManager.Out(Main.Strings.getString("CorpLock"),3);
                     return;
                 }
                 IOManager.Out(Main.Strings.getString("Borrow"),2);
-                value1 = IOManager.Input(2,0,15000);
+                value1 = IOManager.Input(3,0,15000);
                 inv.debt += value1;
                 inv.money += value1;
                 inv.corplock = true;
@@ -185,9 +185,9 @@ public class Scenario {
 		IOManager.Out(Main.Strings.getString("BankActions"),2);
         IOManager.Out(Main.Strings.getString("BankRate"),2);
         switch (IOManager.Input(6)){
-            case "d","deposit" -> {
+            case "d","deposit","1" -> {
                 IOManager.Out(Main.Strings.getString("Deposit"),2);
-                value1 = IOManager.Input(2,0,inv.money);
+                value1 = IOManager.Input(3,0,inv.money);
                 if (value1 == -1) {
                     inputproblem = true;
                 } else {
@@ -201,9 +201,9 @@ public class Scenario {
                     inv.money = inv.money - value1;
                 }
             }
-            case "w","withdraw" -> {
+            case "w","withdraw","2" -> {
                 IOManager.Out(Main.Strings.getString("Withdraw"),2);
-                value1 = IOManager.Input(2,0,inv.savings);
+                value1 = IOManager.Input(3,0,inv.savings);
                 if (value1 == -1) {
                     inputproblem = true;
                 } else {
@@ -237,7 +237,7 @@ public class Scenario {
 					IOManager.Out(Main.Strings.getString("PiratesChase"),pirates,false,2);
                     IOManager.Out(Main.Strings.getString("WhatToDo"),2);
                     IOManager.Out(Main.Strings.getString("PiratesActions"),2);
-                    switch (IOManager.Input(5)) {
+                    switch (IOManager.Input(6)) {
                         case "a" -> {
                             if (inv.gun) {
                                 if (IOManager.rand.nextInt(1,20) > 10) {

@@ -47,7 +47,7 @@ public class StorageManager {
             }
         }
         System.out.print(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2,number,#}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
-        System.out.println(gun ? " | Gun installed." : "");
+        System.out.println(gun ? " | Gun" : "");
     }
     void add(int item, int amount, boolean payment){
         Storage[item] += amount;

@@ -22,7 +22,7 @@ public class Locale_ru_RU extends Locale {
 				{"Ore", "Руда"},
 				{"Meds", "Медикаменты"},
 				{"Food", "Еда"},
-				{"Weapons", "Оружие"},
+				{"Weapons", "Винтовки"},
 				{"Water", "Вода"},
 				//Input Modes
 				{"Select", "Выбор"},
