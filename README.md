@@ -6,8 +6,10 @@ Moving away from the original drug theme (deemed offensive by some), the object 
 ## Requirements:
 
 - Java 17 (JDK to build)
+    - Arch: `pacman -Sy jdk17-openjdk` or just JRE `pacman -Sy jre17-openjdk`
+    - Debian-based: `apt update && apt install openjdk-17-jdk` or just JRE `apt update && apt install openjdk-17-jre`
 - UTF-8 Terminal
-
+  - If you use Windows 8 or earlier, you can use [ConEmu](https://conemu.github.io/).
 ## Building:
 ### Windows
 
@@ -29,3 +31,15 @@ You will find JAR in `out/SolarWars.jar`.
 - Go to Build > Build Artifacts... > Build.
 
 You will find JAR in `out/artifacts/SolarWars_jar/SolarWars.jar`.
+
+## Running
+### Windows
+
+You can use [this batch](https://raw.githubusercontent.com/ItsNikopol/SolarWarsCLI/main/batches/Play.bat) to play the game.
+
+- Set codepage to UTF-8: `chcp 65001`
+- Start the game, using downloaded JRE/JDK: `java -jar SolarWars.jar`
+
+### Linux
+
+Run the game using TTY or terminal emulator: `java -jar SolarWars.jar`
