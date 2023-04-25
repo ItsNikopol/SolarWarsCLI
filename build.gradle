@@ -1,0 +1,55 @@
+plugins {
+    id 'java-library'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group ''
+version '1.0-SNAPSHOT'
+
+
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'net.java.linoleum:jcterm:0.0.11'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+
+
+        }
+    }
+}
+
+
+application {
+
+    mainClass = 'Main'
+}
+
+shadowJar{
+    manifest {
+        attributes(
+                'Main-Class': 'Main'
+        )
+    }
+}
+
+
+
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+}

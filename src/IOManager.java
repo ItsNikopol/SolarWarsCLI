@@ -4,6 +4,8 @@ import java.text.MessageFormat;
 import java.util.Random;
 import java.util.Scanner;
 
+
+
 public class IOManager {
     static Scanner in = new Scanner(System.in);
     static Random rand = new Random();
