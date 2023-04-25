@@ -1,12 +1,17 @@
+import com.jcraft.jsch.IO;
+import org.darkline.BreadTerm;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main {
     static Locale locale_en_US = new Locale("en", "US");
-	static Locale locale_ru_RU = new Locale("ru", "RU");
-	static ResourceBundle Strings = ResourceBundle.getBundle("Locale", locale_en_US);
+    static Locale locale_ru_RU = new Locale("ru", "RU");
+    static ResourceBundle Strings = ResourceBundle.getBundle("Locale", locale_en_US);
     public static void main(String[] args) {
-		changelang();
+        BreadTerm b = new BreadTerm();
+        //wait for it
+        changelang();
         menu();
     }
 

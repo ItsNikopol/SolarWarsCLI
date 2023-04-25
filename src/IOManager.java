@@ -3,13 +3,24 @@ import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Random;
 import java.util.Scanner;
+import java.awt.Window;
+import org.darkline.*;
 
+import javax.swing.*;
 
 
 public class IOManager {
-    static Scanner in = new Scanner(System.in);
+    /*
+      dirty static hack
+      Let's play a game: "Find-game-window"
+    */
+    static BreadTerm terminal = ((BreadTerm.BreadCanvas) ((JRootPane)Window.getWindows()[0].getComponents()[0]).getContentPane().getComponents()[0]).getParentTerminal();
+
+    static Scanner in = new Scanner(terminal.getKeyboardStream(),"UTF-16LE");
     static Random rand = new Random();
-    static PrintStream printcli = new PrintStream(System.out, true, StandardCharsets.UTF_8);
+
+
+    static BreadIO printcli =terminal.getIO();
     static String PlanetName(int planet){
         switch (planet){
             case 1 -> {
