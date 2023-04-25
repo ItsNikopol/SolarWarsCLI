@@ -23,8 +23,6 @@ jobs:
         distribution: 'temurin'
     - name: Build
       run: bash Build.sh
-    - name: Upload result
-      uses: actions/upload-artifact@v3
-      with:
-        name: jar
-        path: out/SolarWars.jar
+    - uses: actions/upload-artifact@v3
+      name: jar
+      path: out/SolarWars.jar
