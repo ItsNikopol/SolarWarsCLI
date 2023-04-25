@@ -1,9 +1,11 @@
+import java.text.MessageFormat;
 import java.util.Objects;
 
 public class Scenario {
     static StorageManager inv = new StorageManager();
-    static int value1, value2, available, days, msg = 0;
-    static byte pirates = 3, planet = 1, fuelreq = 1;
+    static int value1, value2, available, days, msg = 0, planet = 1;
+    static boolean piratesrage = false;
+    static int[] Pirates = new int[4];
     public static void scenario(int dayscnt){
         days = dayscnt;
         inv.money = 10000;
@@ -48,7 +50,7 @@ public class Scenario {
 		
     }
     static void buy(){
-        if (inv.capacity == inv.calculateOccupied()){
+        if (inv.capacity() == inv.calculateOccupied()){
             IOManager.Out(Main.Strings.getString("FullStorage"), 3); return;
         }
         IOManager.Out(Main.Strings.getString("Buy"),2);
@@ -70,7 +72,7 @@ public class Scenario {
             msg = 1;
         } else if (value1 > available) {
             IOManager.Out(Main.Strings.getString("NotEnoughMoney"), value1,true, 3);
-        } else if (value1 > (inv.capacity - inv.calculateOccupied())) {
+        } else if (value1 > (inv.capacity() - inv.calculateOccupied())) {
             IOManager.Out(Main.Strings.getString("NotEnoughStorage"),3);
         } else {
             inv.add(value2, value1,true);
@@ -100,8 +102,8 @@ public class Scenario {
         }
     }
     static void warp(){
-        if (inv.Storage[1]<fuelreq){
-            IOManager.Out(Main.Strings.getString("NotEnoughFuel"),fuelreq,false,3);
+        if (inv.Storage[1]< inv.lv){
+            IOManager.Out(Main.Strings.getString("NotEnoughFuel"),inv.lv,false,3);
             return;
         }
         IOManager.Out(Main.Strings.getString("WhereTo"),2);
@@ -115,18 +117,16 @@ public class Scenario {
         }
         days--;
         inv.tick();
-        inv.Storage[1] -= fuelreq;
-        planet = (byte) value1;
+        inv.Storage[1] -= inv.lv;
+        planet = value1;
         inv.refreshPrices(planet);
         events();
-        pirates = 3;
         switch (value1) {
             case 5 -> {
                 if (inv.money>10000) {
                     IOManager.Out(Main.Strings.getString("ExpandStorage"),2);
                     if (Objects.equals(IOManager.Input(7), "Y")) {
-                        inv.capacity += 80;
-                        fuelreq++;
+                        inv.lv++;
                         inv.money -= 10000;
                     }
                 }
@@ -221,12 +221,14 @@ public class Scenario {
         System.out.println("Awaiting debug RNG input"); numberedanswer = IOManager.Input(0,1,20);
         IOManager.rand.nextInt(1,20)
         */
-        switch (IOManager.rand.nextInt(1,20)){
+        switch (2){
             case 1 -> {
                 IOManager.Out(Main.Strings.getString("Wormhole"),3);
                 days += 3;
             }
             case 2 -> {
+                pirates();
+                /*
                 outer:
                 while (pirates != 0) {
 					IOManager.Out(Main.Strings.getString("PiratesChase"),pirates,false,2);
@@ -271,6 +273,7 @@ public class Scenario {
 					}
                     
                 }
+                 */
             }
             case 3 -> {
                 value1 = IOManager.rand.nextInt(1,8);
@@ -294,8 +297,62 @@ public class Scenario {
             }
             case 7 -> {
                 IOManager.Out(Main.Strings.getString("SalvageShip"),3);
-                inv.capacity += 80;
-                fuelreq++;
+                inv.lv++;
+            }
+        }
+    }
+    static void pirates(){
+        for(int i = 1; i < 4; i++){
+            Pirates[i] = IOManager.rand.nextInt(100,400);
+        }
+        while (Pirates[1]+Pirates[2]+Pirates[3] > 0){
+            System.out.println("ID0 P ["+inv.chp+"] HP");
+            for(int i = 1; i < 4; i++){
+                System.out.println(MessageFormat.format(
+                        "ID{0} E [{1}] HP",
+                        i,
+                        Pirates[i]
+                ));
+            }
+            if (msg == 1){
+                IOManager.Out(Main.Strings.getString("InvalidInput"),2);
+                msg = 0;
+            }
+            IOManager.Out(Main.Strings.getString("WhatToDo"),2);
+            IOManager.Out(Main.Strings.getString("PiratesActions"),2);
+            switch (IOManager.Input(6)) {
+                case "a" -> {
+                    if (!inv.gun) {
+                        IOManager.Out(Main.Strings.getString("NoWeapon"),3);
+                        break;
+                    }
+                    IOManager.Out(Main.Strings.getString("PiratesBattle"),2);
+                    value1 = IOManager.Input(1,1,3);
+                    if (value1 == -1){
+                        msg = 1;
+                        break;
+                    }
+                    if (!piratesrage){
+                        IOManager.Out(Main.Strings.getString("PiratesRage"),2);
+                        piratesrage = true;
+                    }
+                    value2 = IOManager.rand.nextInt(200,400);
+                    Pirates[value1] -= value2;
+                    IOManager.Out(Main.Strings.getString("PiratesAttack"),value2,false,3);
+                    if (Pirates[value2] < 0) Pirates[value2] = 0;
+                }
+                case "r" -> {
+                    if (IOManager.rand.nextInt(1,20) > 13) {
+                        IOManager.Out(Main.Strings.getString("PiratesEscape"),3);
+                        return;
+                    }
+                    IOManager.Out(Main.Strings.getString("PiratesOnChase"),3);
+                }
+                default -> msg = 1;
+            }
+            if (piratesrage){
+                value2 = IOManager.rand.nextInt(70,200);
+                IOManager.Out(Main.Strings.getString("PiratesDMG"),3,false,value2);
             }
         }
     }

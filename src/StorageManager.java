@@ -5,8 +5,8 @@ import java.util.stream.IntStream;
 public class StorageManager {
     int[] Storage = new int[9];
     int[] Prices = new int[9];
-    int money = 0, debt = 0, savings = 0, capacity = 80;
-    boolean gun = false, corplock = false;
+    int money = 0, debt = 0, savings = 0, lv = 1, chp = 600;
+    boolean gun = true, corplock = false;
     void refreshPrices(int mode){
         Prices[1] = IOManager.rand.nextInt(150,2000);
         Prices[2] = IOManager.rand.nextInt(5000,30000);
@@ -27,6 +27,12 @@ public class StorageManager {
     int calculateOccupied(){
         return Arrays.stream(Storage, 1, 9).sum();
     }
+    int HP() {
+        return lv*600;
+    }
+    int capacity(){
+        return lv*80;
+    }
     void printTable(){
         for(int i = 1; i < 9; i++){
             if (Prices[i] == 0){
@@ -46,8 +52,8 @@ public class StorageManager {
                 ));
             }
         }
-        System.out.println(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2,number,#}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
-        System.out.println(MessageFormat.format("Lv.{0,number,#} | {1} | 1 HP lol", capacity/80,gun ? "Cannon" : "No Weapon"));
+        System.out.println(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2,number,#}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity()));
+        System.out.println(MessageFormat.format("Lv.{0,number,#} | {1} | {2} HP", lv,gun ? "Cannon" : "No Weapon", HP()));
     }
     void add(int item, int amount, boolean payment){
         Storage[item] += amount;
