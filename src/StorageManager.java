@@ -5,7 +5,7 @@ import java.util.stream.IntStream;
 public class StorageManager {
     int[] Storage = new int[9];
     int[] Prices = new int[9];
-    int money = 0, debt = 0, savings = 0, capacity = 100;
+    int money = 0, debt = 0, savings = 0, capacity = 80;
     boolean gun = false, corplock = false;
     void refreshPrices(int mode){
         Prices[1] = IOManager.rand.nextInt(150,2000);
@@ -34,20 +34,20 @@ public class StorageManager {
                         "ID{0} [{1}] {2} N/A",
                         i,
                         Storage[i],
-                        IOManager.ProductName(i)
+                        Main.Strings.getString("Product" + i)
                 ));
             } else {
                 System.out.println(MessageFormat.format(
                         "ID{0} [{1}] {2} {3,number,#}$",
                         i,
                         Storage[i],
-                        IOManager.ProductName(i),
+                        Main.Strings.getString("Product" + i),
                         Prices[i]
                 ));
             }
         }
-        System.out.print(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2,number,#}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
-        System.out.println(gun ? " | Gun" : "");
+        System.out.println(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2,number,#}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
+        System.out.println(MessageFormat.format("Lv.{0,number,#} | {1} | 1 HP lol", capacity/80,gun ? "Cannon" : "No Weapon"));
     }
     void add(int item, int amount, boolean payment){
         Storage[item] += amount;

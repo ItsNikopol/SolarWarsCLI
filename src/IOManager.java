@@ -8,86 +8,6 @@ public class IOManager {
     static Scanner in = new Scanner(System.in);
     static Random rand = new Random();
     static PrintStream printcli = new PrintStream(System.out, true, StandardCharsets.UTF_8);
-    static String PlanetName(int planet){
-        switch (planet){
-            case 1 -> {
-                return Main.Strings.getString("Earth");
-            }
-            case 2 -> {
-                return Main.Strings.getString("Mars");
-            }
-            case 3 -> {
-                return Main.Strings.getString("Jupiter");
-            }
-            case 4 -> {
-                return Main.Strings.getString("Saturn");
-            }
-            case 5 -> {
-                return Main.Strings.getString("Neptune");
-            }
-            case 6 -> {
-                return Main.Strings.getString("Pluto");
-            }
-
-        }
-        return null;
-    }
-    static String ProductName(int product){
-        switch (product){
-            case 1 -> {
-                return Main.Strings.getString("Fuel");
-            }
-            case 2 -> {
-                return Main.Strings.getString("Dilithum");
-            }
-            case 3 -> {
-                return Main.Strings.getString("Parts");
-            }
-            case 4 -> {
-                return Main.Strings.getString("Ore");
-            }
-            case 5 -> {
-                return Main.Strings.getString("Meds");
-            }
-            case 6 -> {
-                return Main.Strings.getString("Food");
-            }
-            case 7 -> {
-                return Main.Strings.getString("Weapons");
-            }
-            case 8 -> {
-                return Main.Strings.getString("Water");
-            }
-
-        }
-        return null;
-    }
-    static String InputModesName(int action){
-        switch (action){
-            case 1 -> {
-                return Main.Strings.getString("Select");
-            }
-            case 2 -> {
-                return Main.Strings.getString("Menu");
-            }
-            case 3 -> {
-                return Main.Strings.getString("Count");
-            }
-            case 4 -> {
-                return Main.Strings.getString("Item");
-            }
-            case 5 -> {
-                return Main.Strings.getString("Planet");
-            }
-            case 6 -> {
-                return Main.Strings.getString("Action");
-            }
-            case 7 -> {
-                return Main.Strings.getString("Y/N");
-            }
-        }
-        return null;
-    }
     static void Out(String text, int mode){
         switch (mode){
             case 1 -> printcli.print(text);
@@ -102,10 +22,10 @@ public class IOManager {
     static void Out(String text, int id, boolean idmode, int mode){
         if (idmode) {
             switch (mode) {
-                case 1 -> printcli.print(MessageFormat.format(text, ProductName(id)));
-                case 2 -> printcli.println(MessageFormat.format(text, ProductName(id)));
+                case 1 -> printcli.print(MessageFormat.format(text, Main.Strings.getString("Product" + id)));
+                case 2 -> printcli.println(MessageFormat.format(text, Main.Strings.getString("Product" + id)));
                 case 3 -> {
-                    printcli.print(MessageFormat.format(text + " [Enter]", ProductName(id)));
+                    printcli.print(MessageFormat.format(text + " [Enter]", Main.Strings.getString("Product" + id)));
                     in.skip("\r\n|\r|\n");
                     in.nextLine();
                 }
@@ -124,10 +44,10 @@ public class IOManager {
     }
     static void Out(String text, int id, int number, int mode){
         switch (mode){
-            case 1 -> printcli.print(MessageFormat.format(text, ProductName(id), number));
-            case 2 -> printcli.println(MessageFormat.format(text, ProductName(id), number));
+            case 1 -> printcli.print(MessageFormat.format(text, Main.Strings.getString("Product" + id), number));
+            case 2 -> printcli.println(MessageFormat.format(text, Main.Strings.getString("Product" + id), number));
             case 3 -> {
-                printcli.print(MessageFormat.format(text+" [Enter]", ProductName(id), number));
+                printcli.print(MessageFormat.format(text+" [Enter]", Main.Strings.getString("Product" + id), number));
                 in.skip("\r\n|\r|\n");
                 in.nextLine();
             }
@@ -137,12 +57,12 @@ public class IOManager {
         System.out.print("\033\143");
     }
     static String Input(int request){
-        printcli.print("["+InputModesName(request)+"] >> ");
+        printcli.print("["+Main.Strings.getString("Input" + request)+"] >> ");
         return in.next();
     }
     static int Input(int request, int r1, int r2){
         try {
-            printcli.print(MessageFormat.format("[{0}][{1,number,#}-{2,number,#}] >> ", InputModesName(request), r1, r2));
+            printcli.print(MessageFormat.format("[{0}][{1,number,#}-{2,number,#}] >> ", Main.Strings.getString("Input" + request), r1, r2));
             int input = Integer.parseInt(in.next());
             if (input>=r1 && input<=r2) return input;
             return -1;
