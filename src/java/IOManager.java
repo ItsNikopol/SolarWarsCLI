@@ -150,16 +150,25 @@ public class IOManager {
         System.out.print("\033\143");
     }
     static String Input(int request){
+        printcli.enableEcho();
         printcli.print("["+InputModesName(request)+"] >> ");
-        return in.next();
+        String next = in.next();
+        printcli.disableEcho();
+        return next;
     }
     static int Input(int request, int r1, int r2){
+
         try {
             printcli.print(MessageFormat.format("[{0}][{1,number,#}-{2,number,#}] >> ", InputModesName(request), r1, r2));
+            printcli.enableEcho();
             int input = Integer.parseInt(in.next());
+            printcli.disableEcho();
             if (input>=r1 && input<=r2) return input;
+
             return -1;
         } catch (Exception ex){
+            printcli.disableEcho();
+
             return -1;
         }
     }

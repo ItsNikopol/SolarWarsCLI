@@ -10,7 +10,6 @@ public class Main {
     static ResourceBundle Strings = ResourceBundle.getBundle("Locale", locale_en_US);
     public static void main(String[] args) {
         BreadTerm b = new BreadTerm();
-        //wait for it
         changelang();
         menu();
     }
@@ -31,7 +30,7 @@ public class Main {
     public static void changelang(){
         IOManager.Out(Strings.getString("Language"),2);
         switch (IOManager.Input(1)){
-            case "1" -> Strings = ResourceBundle.getBundle("Locale", locale_en_US);
+            case "1" -> Strings = ResourceBundle.getBundle("Locale_en_US", locale_en_US);
             case "2" -> Strings = ResourceBundle.getBundle("Locale_ru_RU", locale_ru_RU);
             default -> IOManager.Out(Strings.getString("InvalidInput"),3);
         }

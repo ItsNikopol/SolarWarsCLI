@@ -15,7 +15,8 @@ repositories {
 }
 
 dependencies {
-    
+    //for font parsing
+    implementation 'io.kaitai:kaitai-struct-runtime:0.10'
 }
 
 java {
@@ -27,11 +28,15 @@ java {
 sourceSets {
     main {
         java {
-            srcDirs = ['src']
+            srcDirs = ['src/java']
 
 
         }
+        resources {
+            srcDirs = ['src/resources']
+        }
     }
+
 }
 
 
@@ -41,6 +46,7 @@ application {
 }
 
 shadowJar{
+
     manifest {
         attributes(
                 'Main-Class': 'Main'

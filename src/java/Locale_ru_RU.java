@@ -1,6 +1,8 @@
+
 import java.util.ListResourceBundle;
 @SuppressWarnings("unused")
-public class Locale_ru_RU extends Locale {
+
+public class Locale_ru_RU extends Locale_en_US {
 	protected Object[][] getContents() {
 		return new Object[][] {
 				{"Logo", "   _____       __                                   \n  / ___/____  / /___ _______      ______ ___________\n  \\__ \\/ __ \\/ / __ `/ ___/ | /| / / __ `/ ___/ ___/\n ___/ / /_/ / / /_/ / /   | |/ |/ / /_/ / /  (__  ) \n/____/\\____/_/\\__,_/_/    |__/|__/\\__,_/_/  /____/  "},
