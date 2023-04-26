@@ -15,8 +15,6 @@ repositories {
 }
 
 dependencies {
-    //for font parsing
-    implementation 'io.kaitai:kaitai-struct-runtime:0.10'
 }
 
 java {
