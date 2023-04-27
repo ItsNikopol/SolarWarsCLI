@@ -1,2 +1,1 @@
-gradlew clean
-gradlew build
+gradlew clean build
