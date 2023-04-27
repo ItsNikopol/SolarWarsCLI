@@ -5,7 +5,7 @@ plugins {
 }
 
 group ''
-version '1.0-SNAPSHOT'
+version '0.13a-gui'
 
 compileJava.options.encoding = "UTF-8"
 compileTestJava.options.encoding = "UTF-8"
@@ -15,6 +15,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
 }
 
 java {
