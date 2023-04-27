@@ -16,8 +16,9 @@ public class IOManager {
     */
     static BreadTerm terminal = ((BreadTerm.BreadCanvas) ((JRootPane)Window.getWindows()[0].getComponents()[0]).getContentPane().getComponents()[0]).getParentTerminal();
 
-    static Scanner in = new Scanner(terminal.getKeyboardStream(),"UTF-16LE");
+    static Scanner in = new Scanner(terminal.getKeyboardStream(),StandardCharsets.UTF_16LE);
     static Random rand = new Random();
+
 
 
     static BreadIO printcli =terminal.getIO();
@@ -147,7 +148,8 @@ public class IOManager {
         }
     }
     static void Clear(){
-        System.out.print("\033\143");
+        //System.out.print("\033\143");
+        printcli.clearScreen();
     }
     static String Input(int request){
         printcli.enableEcho();

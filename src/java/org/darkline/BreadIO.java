@@ -28,21 +28,36 @@ public class BreadIO extends InputStream implements KeyListener, MouseWheelListe
     public void keyTyped(KeyEvent e) {
         char typed = e.getKeyChar();
 
-
         //Converting 16-bit char to 2 bytes
 
 
         byte[] tbyte = new String(new char[]{typed}).getBytes(StandardCharsets.UTF_16LE);
+
         if(echo) {
 
             print(new String(tbyte,StandardCharsets.UTF_16LE));
             term.redraw();
         }
+
         for (byte b:tbyte) {
             keyboardBuffer.add(((int) b) & 0xFF);
+            keyboardBuffer.size();
+
+        }
+        if(typed=='\n') {
             keyboardBuffer.add(-1);
         }
 
+        if(typed=='\b' && keyboardBuffer.size()>=4) {
+            for (int i = 0; i < 4; i++) {
+                keyboardBuffer.remove(keyboardBuffer.size()-1);
+            }
+            if(echo&& displayBuffer.size()>=2){
+                displayBuffer.remove(displayBuffer.size()-1);
+                displayBuffer.remove(displayBuffer.size()-1);
+                term.repaint();
+            }
+        }
     }
 
     @Override
@@ -57,7 +72,7 @@ public class BreadIO extends InputStream implements KeyListener, MouseWheelListe
 
     @Override
     public int read() throws IOException {
-        while (keyboardBuffer.isEmpty()){
+        while (!keyboardBuffer.contains(-1)){
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
@@ -102,7 +117,16 @@ public class BreadIO extends InputStream implements KeyListener, MouseWheelListe
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
+        int preManSS = term.manualscrollState;
+        term.manualscrollState=term.manualscrollState+(-1*e.getWheelRotation());
+        if(term.manualscrollState+term.scrollState>0){
+            term.manualscrollState=preManSS;
+        }
+        if(term.manualscrollState+term.scrollState<term.maxscrollState){
+            term.manualscrollState=preManSS;
 
+        }
+        term.redraw();
     }
 
     public void enableEcho() {
@@ -111,5 +135,13 @@ public class BreadIO extends InputStream implements KeyListener, MouseWheelListe
 
     public void disableEcho() {
         echo=false;
+    }
+
+    public void clearScreen(){
+        term.scrollState=0;
+        term.maxscrollState=0;
+        term.manualscrollState=0;
+        displayBuffer.clear();
+        term.redraw();
     }
 }

@@ -10,6 +10,11 @@ public class Main {
     static ResourceBundle Strings = ResourceBundle.getBundle("Locale", locale_en_US);
     public static void main(String[] args) {
         BreadTerm b = new BreadTerm();
+        System.setIn(b.getIO());
+
+        b.setScaleFactor(1);
+        b.redraw();
+
         changelang();
         menu();
     }
