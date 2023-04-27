@@ -46,7 +46,7 @@ application {
 
 shadowJar{
     archiveBaseName.set('SolarWars')
-    archiveClassifier.set('')
+    archiveClassifier.set('full')
     archiveVersion.set('')
     manifest {
         attributes(

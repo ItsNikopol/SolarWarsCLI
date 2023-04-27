@@ -13,32 +13,31 @@ Moving away from the original drug theme (deemed offensive by some), the object 
 
 - Open `Build.bat`.
 
-You will find JAR in `build/libs/SolarWars.jar`.
+You will find JAR in `build/libs/SolarWars-full.jar`.
 
 ### Linux
 
 - Open terminal in folder
 - Make gradlew runnable: `chmod +x gradlew`
-- Clean build directory: `./gradlew clean`
-- Build project: `./gradlew build`
+- Build project: `./gradlew clean build`
 
-You will find JAR in `build/libs/SolarWars.jar`.
-
-If you want to run game from sources without jar, execute `./gradlew run` instead of `./gradlew build`.
+You will find JAR in `build/libs/SolarWars-full.jar`.
 
 ### IntelliJ IDEA
 
 - Open project in IntelliJ IDEA.
 - Go to Build > Build Project
 
-You will find JAR in `build/libs/SolarWars.jar`.
+You will find JAR in `build/libs/SolarWars-full.jar`.
 
 ## Running
 ### Windows
 
-- Start the game, using downloaded JRE/JDK: `java -jar SolarWars.jar`
+- Start the game, using downloaded JRE/JDK: `java -jar SolarWars-full.jar`
+- If you want to run game from sources without jar, open `Run.bat`
 
 ### Linux
 
-- Run the game: `java -jar SolarWars.jar`
+- Run the game: `java -jar SolarWars-full.jar`
+- If you want to run game from sources without jar, execute `./gradlew clean run`
 
