@@ -4,15 +4,13 @@ import org.darkline.BreadTerm;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.ListResourceBundle;
-import java.util.Map;
 
 public class Main {
     static Locale locale_en_US = new Locale("en", "US");
     static Locale locale_ru_RU = new Locale("ru", "RU");
     static ResourceBundle Strings = new LocaleAdapter(locale_en_US);
     public static void main(String[] args) {
-        Gson gson = new Gson();
+
         System.out.println();
         BreadTerm b = new BreadTerm();
         System.setIn(b.getIO());
