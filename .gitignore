@@ -1,2 +1,4 @@
 out/*
+.gradle
+build
 **desktop.ini

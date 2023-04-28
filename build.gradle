@@ -1,0 +1,63 @@
+plugins {
+    id 'java-library'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group ''
+version '0.13a-gui'
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.google.code.gson:gson:2.10.1'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/java']
+
+
+        }
+        resources {
+            srcDirs = ['src/resources']
+        }
+    }
+
+}
+
+
+application {
+
+    mainClass = 'Main'
+}
+
+shadowJar{
+    archiveBaseName.set('SolarWars')
+    archiveClassifier.set('full')
+    archiveVersion.set('')
+    manifest {
+        attributes(
+                'Main-Class': 'Main'
+        )
+    }
+}
+
+
+
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+}

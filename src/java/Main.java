@@ -1,18 +1,30 @@
+
+import org.darkline.BreadTerm;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Main {
     static Locale locale_en_US = new Locale("en", "US");
-	static Locale locale_ru_RU = new Locale("ru", "RU");
-	static ResourceBundle Strings = ResourceBundle.getBundle("Locale", locale_en_US);
+    static Locale locale_ru_RU = new Locale("ru", "RU");
+    static ResourceBundle Strings = new LocaleAdapter(locale_en_US);
     public static void main(String[] args) {
-		changelang();
+
+        System.out.println();
+        BreadTerm b = new BreadTerm();
+        System.setIn(b.getIO());
+
+
+        b.setScaleFactor(1);
+        b.redraw();
+
+        changelang();
         menu();
     }
 
     public static void menu() {
         IOManager.Clear();
-        IOManager.Out("Solarwars v0.13a",2);
+        IOManager.Out("Solarwars v0.13a-gui",2);
         IOManager.Out(Strings.getString("Logo"),2);
         IOManager.Out(Strings.getString("Modes"),2);
         switch (IOManager.Input(1)){
@@ -26,8 +38,8 @@ public class Main {
     public static void changelang(){
         IOManager.Out(Strings.getString("Language"),2);
         switch (IOManager.Input(1)){
-            case "1" -> Strings = ResourceBundle.getBundle("Locale", locale_en_US);
-            case "2" -> Strings = ResourceBundle.getBundle("Locale_ru_RU", locale_ru_RU);
+            case "1" -> Strings = new LocaleAdapter(locale_en_US);
+            case "2" -> Strings = new LocaleAdapter(locale_ru_RU);
             default -> IOManager.Out(Strings.getString("InvalidInput"),3);
         }
     }

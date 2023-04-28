@@ -30,14 +30,14 @@ public class StorageManager {
     void printTable(){
         for(int i = 1; i < 9; i++){
             if (Prices[i] == 0){
-                System.out.println(MessageFormat.format(
+                IOManager.terminal.getIO().println(MessageFormat.format(
                         "ID{0} [{1}] {2} N/A",
                         i,
                         Storage[i],
                         IOManager.ProductName(i)
                 ));
             } else {
-                System.out.println(MessageFormat.format(
+                IOManager.terminal.getIO().println(MessageFormat.format(
                         "ID{0} [{1}] {2} {3,number,#}$",
                         i,
                         Storage[i],
@@ -46,8 +46,8 @@ public class StorageManager {
                 ));
             }
         }
-        System.out.print(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2,number,#}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
-        System.out.println(gun ? " | Gun" : "");
+        IOManager.terminal.getIO().print(MessageFormat.format("C: {0,number,#}$ | D: {1,number,#}$ | S: {2,number,#}$ | {3}/{4}", money, debt, savings, calculateOccupied(), capacity));
+        IOManager.terminal.getIO().println(gun ? " | Gun" : "");
     }
     void add(int item, int amount, boolean payment){
         Storage[item] += amount;
