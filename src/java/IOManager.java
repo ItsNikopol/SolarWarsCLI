@@ -1,27 +1,13 @@
-
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.Random;
 import java.util.Scanner;
-import java.awt.Window;
-import org.darkline.*;
-
-import javax.swing.*;
-
 
 public class IOManager {
-    /*
-      dirty static hack
-      Let's play a game: "Find-game-window"
-    */
-    static BreadTerm terminal = ((BreadTerm.BreadCanvas) ((JRootPane)Window.getWindows()[0].getComponents()[0]).getContentPane().getComponents()[0]).getParentTerminal();
-
-    static Scanner in = new Scanner(terminal.getKeyboardStream(),StandardCharsets.UTF_16LE);
+    static Scanner in = new Scanner(System.in);
     static Random rand = new Random();
-
-
-
-    static BreadIO printcli =terminal.getIO();
+    static PrintStream printcli = new PrintStream(System.out, true, StandardCharsets.UTF_8);
     static String PlanetName(int planet){
         switch (planet){
             case 1 -> {
@@ -148,29 +134,19 @@ public class IOManager {
         }
     }
     static void Clear(){
-        //System.out.print("\033\143");
-        printcli.clearScreen();
+        System.out.print("\033\143");
     }
     static String Input(int request){
-        printcli.enableEcho();
         printcli.print("["+InputModesName(request)+"] >> ");
-        String next = in.next();
-        printcli.disableEcho();
-        return next;
+        return in.next();
     }
     static int Input(int request, int r1, int r2){
-
         try {
             printcli.print(MessageFormat.format("[{0}][{1,number,#}-{2,number,#}] >> ", InputModesName(request), r1, r2));
-            printcli.enableEcho();
             int input = Integer.parseInt(in.next());
-            printcli.disableEcho();
             if (input>=r1 && input<=r2) return input;
-
             return -1;
         } catch (Exception ex){
-            printcli.disableEcho();
-
             return -1;
         }
     }

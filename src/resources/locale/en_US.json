@@ -5,7 +5,7 @@
   ],
   [
     "Help",
-    "Game commands:\nBuying:\n[b]/[1] - Buy; [s]/[2] - Sell\nManaging money:\n[bk]/[3] - Bank; [c]/[4] - Corporation\nMoving:\n[w]/[5] - Warp to planet; [ff]/[6] - Skip day\nOther:\n[h] - Help; [set] - ���������; [q] - Quit from the game."
+    "Game commands:\nBuying:\n[b]/[1] - Buy; [s]/[2] - Sell\nManaging money:\n[bk]/[3] - Bank; [c]/[4] - Corporation\nMoving:\n[w]/[5] - Warp to planet; [ff]/[6] - Skip day\nOther:\n[h] - Help; [set] - Settings; [q] - Quit from the game."
   ],
   [
     "Modes",

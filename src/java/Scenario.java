@@ -221,8 +221,11 @@ public class Scenario {
     }
     static void events(){
         /*
-        In order to test events, you can enter event maunally.
-        System.out.println("Awaiting debug RNG input"); numberedanswer = IOManager.Input(0,1,20);
+        In order to test events, you can enter event maunally by replacing code in the switch.
+        ===
+        IOManager.Input(0,1,20);
+        ===
+        Original code:
         IOManager.rand.nextInt(1,20)
         */
         switch (IOManager.rand.nextInt(1,20)){

@@ -1,6 +1,3 @@
-
-import org.darkline.BreadTerm;
-
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -9,22 +6,13 @@ public class Main {
     static Locale locale_ru_RU = new Locale("ru", "RU");
     static ResourceBundle Strings = new LocaleAdapter(locale_en_US);
     public static void main(String[] args) {
-
-        System.out.println();
-        BreadTerm b = new BreadTerm();
-        System.setIn(b.getIO());
-
-
-        b.setScaleFactor(1);
-        b.redraw();
-
         changelang();
         menu();
     }
 
     public static void menu() {
         IOManager.Clear();
-        IOManager.Out("Solarwars v0.13a-gui",2);
+        IOManager.Out("Solarwars v0.13a",2);
         IOManager.Out(Strings.getString("Logo"),2);
         IOManager.Out(Strings.getString("Modes"),2);
         switch (IOManager.Input(1)){
