@@ -237,7 +237,7 @@
   ],
   [
     "ExpandStorage",
-    "Do you want to expand storage for 10000$? (+80)"
+    "Do you want to upgrade ship for 10000$?"
   ],
   [
     "BuyGun",
@@ -301,10 +301,14 @@
   ],
   [
     "SalvageShip",
-    "You salvage a Derelict Ship. +80 Bays and Cargo!"
+    "You salvage a Derelict Ship. Lv UP!"
   ],
   [
     "End",
     "You ran out of time.\nYou collected {0,number,#}$!"
+  ],
+  [
+    "CorpAnotherPlanet",
+    "You can operate with corporation on Earth only."
   ]
 ]

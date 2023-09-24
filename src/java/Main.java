@@ -12,7 +12,7 @@ public class Main {
 
     public static void menu() {
         IOManager.Clear();
-        IOManager.Out("Solarwars v0.13a",2);
+        IOManager.Out("Solarwars v0.15",2);
         IOManager.Out(Strings.getString("Logo"),2);
         IOManager.Out(Strings.getString("Modes"),2);
         switch (IOManager.Input(1)){
